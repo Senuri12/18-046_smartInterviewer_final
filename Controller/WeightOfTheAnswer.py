@@ -1,7 +1,7 @@
 import nltk
 from nltk.corpus import state_union
 from nltk.tokenize import PunktSentenceTokenizer
-
+from Controller import grammaticallyCorrectionAnswer
 
 
 
@@ -112,7 +112,8 @@ def process_content(useranswer):
                 part8 = 1
 
         result = part1+part2+part3+part4+part5+part6+part7+part8
-        if result>=3:
+        gramerprecentage = grammaticallyCorrectionAnswer.grammerMarks(useranswer)
+        if result >= 3 and gramerprecentage > 6:
             return 0.1
         else:
             return 0.0
