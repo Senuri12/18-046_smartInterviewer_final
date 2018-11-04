@@ -83,6 +83,8 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
     print("this remove[] \n", number)
     print(type(number))
 
+
+
     print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
     # H = [float(i) if '.' in i else int(i) for i in number]
@@ -104,6 +106,12 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
                    [64.0, 64.0, 64.0, 64.0, 64.0],
                    [64.0, 64.0, 64.0, 64.0, 64.0],
                    [64.0, 64.0, 64.0, 64.0, 64.0]])
+
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%")
+
+    print(np.unravel_index(np.argmax(R, axis=None), R.shape))
+
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%")
     # try:
     #     I = float(ConnectionToNeo4j.createQtable1(languageName))
     #     R = np.matrix(I)
@@ -194,7 +202,33 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
     T = Q * 100 / np.max(Q)
     print("^^^^^^^^^^^^^^^^^^^^^^^^^^")
     print(T)
-    np.savetxt('Database/text.txt', T, fmt='%f')
+    # np.savetxt('Database/text.txt', T, fmt='%f')
+
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
+    newOne = np.unravel_index(np.argmax(T, axis=None), T.shape)
+    print(type(newOne))
+    print(newOne)
+
+    [m,n] = newOne
+    print(n)
+    print(type(n))
+    convertStr = str(n)
+    print(type(convertStr))
+
+    if convertStr == "0" or convertStr == "1":
+        result = "hard"
+
+    elif convertStr == "2":
+        result = "medium"
+
+    else:
+        result = "easy"
+
+
+    print(result)
+
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
     print("-----New - 6-----------------------------------------")
     # -------------------------------------------------------
@@ -290,4 +324,4 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
 
 
 
-# rewardForQuestion()
+rewardForQuestion("python",5,"easy")

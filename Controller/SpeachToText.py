@@ -3,7 +3,7 @@
 
 
 # importlib.reload(Audio)
-import speech_recognition as sr
+#import speech_recognition as sr
 from Controller import ConnectionToNeo4j, MostRecentAudioFileAccess, AnswerValidating,AudioRecorder
 import os
 import glob
