@@ -324,4 +324,4 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
 
 
 
-rewardForQuestion("python",5,"easy")
+#rewardForQuestion()
