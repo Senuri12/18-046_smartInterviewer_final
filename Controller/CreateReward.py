@@ -32,9 +32,9 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
     importlib.reload(vari)
     userid = vari.userId
 
-    facial = 10 #have to remove
-    voice = 10  #have to remove
-    answer = 20 #have to remove
+    facial = 18 #have to remove
+    voice = 18  #have to remove
+    answer = 40 #have to remove
 
     total = (facial + voice + answer)
 
@@ -128,13 +128,13 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
     # Q matrix
     Q = np.matrix(np.zeros([5, 5]))
 
-    if state == 1:
+    if state == 5:
         R[0, 4] = total
-    elif state == 2:
+    elif state == 4:
         R[1, 3] = total
     elif state == 3:
         R[2, 2] = total
-    elif state == 4:
+    elif state == 2:
         R[3, 1] = total
     else:
         R[4, 0] = total
@@ -217,55 +217,55 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
     print(type(convertStr))
 
     if convertStr == "0" or convertStr == "1":
-        result = "hard"
+        rewardState = "hard"
 
     elif convertStr == "2":
-        result = "medium"
-
-    else:
-        result = "easy"
-
-
-    print(result)
-
-    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-
-    print("-----New - 6-----------------------------------------")
-    # -------------------------------------------------------
-    # send to ontology
-
-    qTableCreated = str(T)
-
-    ConnectionToNeo4j.sendQtable(languageName, qTableCreated)
-    # -------------------------------------------------------------------------------
-    print("------New - 7----------------------------------------")
-    # convert to probability value
-
-    if state == 3:
-        convertProb = "{0:.0f}%".format((np.max(Q) / 10) - 11)
-        # convertProb = getProb - 10.0
-        print("Precentage of difficulty - ", convertProb)
-    else:
-        convertProb = "{0:.0f}%".format(np.max(Q) / 10)
-        print("Precentage of difficulty - ", convertProb)
-
-    # --send to precentage value to ontology--------------
-    print(type(convertProb))
-
-    convertProb2 = int(convertProb.strip("%"))
-    print(convertProb2)
-
-    # --identify the state--------------
-    print("------New - 8----------------------------------------")
-    if convertProb2 <= 15:
-        rewardState = "hard"
-    elif convertProb2 <= 30:
         rewardState = "medium"
+
     else:
         rewardState = "easy"
 
+
     print(rewardState)
-    print(type(rewardState))
+
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
+    # print("-----New - 6-----------------------------------------")
+    # # -------------------------------------------------------
+    # # send to ontology
+    #
+    # qTableCreated = str(T)
+    #
+    # ConnectionToNeo4j.sendQtable(languageName, qTableCreated)
+    # # -------------------------------------------------------------------------------
+    # print("------New - 7----------------------------------------")
+    # # convert to probability value
+    #
+    # if state == 3:
+    #     convertProb = "{0:.0f}%".format((np.max(Q) / 10) - 11)
+    #     # convertProb = getProb - 10.0
+    #     print("Precentage of difficulty - ", convertProb)
+    # else:
+    #     convertProb = "{0:.0f}%".format(np.max(Q) / 10)
+    #     print("Precentage of difficulty - ", convertProb)
+    #
+    # # --send to precentage value to ontology--------------
+    # print(type(convertProb))
+    #
+    # convertProb2 = int(convertProb.strip("%"))
+    # print(convertProb2)
+    #
+    # # --identify the state--------------
+    # print("------New - 8----------------------------------------")
+    # if convertProb2 <= 15:
+    #     rewardState = "hard"
+    # elif convertProb2 <= 30:
+    #     rewardState = "medium"
+    # else:
+    #     rewardState = "easy"
+    #
+    # print(rewardState)
+    # print(type(rewardState))
 
     # --update the ontology---------------------------
     print("-------New - 9- update the existing list--------------------------------------")
@@ -324,4 +324,4 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
 
 
 
-#rewardForQuestion()
+# rewardForQuestion("python",17,"medium")
