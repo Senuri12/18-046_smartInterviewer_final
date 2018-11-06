@@ -1,7 +1,7 @@
 import importlib
 
 from py2neo import Graph
-import vari
+from Controller import vari
 graph = Graph()
 
 
@@ -40,9 +40,6 @@ def getsessionmarks(no):
   return result
 
 
-
-
-
 def getsessionmarks1():
   query13 = "MATCH (n:session) RETURN n.no ORDER BY n.no DESC LIMIT 1;"
   sessionExist1 = graph.run(query13).evaluate()
@@ -55,13 +52,6 @@ def getsessionmarks1():
      result['q' + str(x + 1)] = str(gen_Question)
 
   return result
-
-
-
-
-
-
-
 
 
 
@@ -232,7 +222,7 @@ def getdiffLevelList(userId,db,db2,techno,level):
     print(gen_list)
     print("my generated list")
     return gen_list
-getdiffLevelList("uid002","user_difficulty","difficulty","python","easy")
+# getdiffLevelList("uid002","user_difficulty","difficulty","python","easy")
 
 def getNestedDiffLevelList(userId,db,db2,db3,techno,level):
     query = "MATCH (j:" + db + "{uid:'" + userId + "'}) - [r: level]->(b:" + db2 + "{technology:'" + techno + "'}) -[r2:nested_level] ->(c:"+db3+") RETURN c." + level+""
