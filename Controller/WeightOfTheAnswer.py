@@ -112,7 +112,9 @@ def process_content(useranswer):
                 part8 = 1
 
         result = part1+part2+part3+part4+part5+part6+part7+part8
-        gramerprecentage = grammaticallyCorrectionAnswer.grammerMarks(useranswer)
+        gramerprecentage = 0
+        if len(useranswer)>8:
+            gramerprecentage = grammaticallyCorrectionAnswer.grammerMarks(useranswer)
         if result >= 3 and gramerprecentage > 6:
             return 0.1
         else:

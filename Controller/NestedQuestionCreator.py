@@ -120,9 +120,10 @@ def keywordSelector(db,filtered_words_string,param,diff_level):
 # for()
 
 #gets the technical keyword list and if no topic available access the db and gets the values
-def nonTechnicalKeywordSeelector(names,project):
+def nonTechnicalKeywordSeelector(names):
     importlib.reload(vari)
     user_id = vari.userId
+    topics = "familiar technologies"
 
     name_list = names.split(' ')
     print("name list")
@@ -148,9 +149,8 @@ def nonTechnicalKeywordSeelector(names,project):
         print("error in that")
         return  db_string_list
     else:
-        db = "project"
-        db2 = "project_d"
-        project_tech_list = ConnectionToNeo4j.cvProjectTech(db,db2,project,user_id)
+        db = "CV"
+        project_tech_list = ConnectionToNeo4j.cvProjectTech(db,topics,user_id)
         print("error in this")
         return project_tech_list
 

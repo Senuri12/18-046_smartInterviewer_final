@@ -13,6 +13,8 @@ sys.path.insert(0, '../Database')
 
 
 from Database import TechnicalQuestionDictionary
+from gingerit.gingerit import GingerIt
+
 
 a={}
 b=[]
@@ -28,6 +30,12 @@ def gen_Question(keywords,questionno,nesornot):
     global question
     custom_sent_tokenizer = PunktSentenceTokenizer(train_text)
     tokenized = custom_sent_tokenizer.tokenize(keywords)
+    print("keywords for question")
+    print(keywords)
+    print("keywords for question")
+    keyword_count = len(keywords.split())
+    print(keyword_count)
+
     try:
         for i in tokenized:
             words = nltk.word_tokenize(i)
@@ -120,6 +128,14 @@ def gen_Question(keywords,questionno,nesornot):
 
     else:
         question = "Define about " + keywords
+
+    parser = GingerIt()
+    grammer_corrected_question_list = parser.parse(question)
+    question = grammer_corrected_question_list.get("result")
+    question_list = question.split()
+    question_suffix_list = question_list[:-keyword_count]
+    question_suffix = ' '.join(question_suffix_list)
+    question = question_suffix + " " + keywords
 
 
     print(question)

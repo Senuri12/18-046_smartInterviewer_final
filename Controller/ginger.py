@@ -91,16 +91,16 @@ def get_ginger_result(text):
         response = urllib.request.urlopen(url)
     except HTTPError as e:
             print("HTTP Error:", e.code)
-            quit()
+            # quit()
     except URLError as e:
             print("URL Error:", e.reason)
-            quit()
+            # quit()
 
     try:
         result = json.loads(response.read().decode('utf-8'))
     except ValueError:
         print("Value Error: Invalid server response.")
-        quit()
+        # quit()
 
     return(result)
 
@@ -110,14 +110,14 @@ def checker(textz):
     original_text = textz
     if len(original_text) > 600:
         print("You can't check more than 600 characters at a time.")
-        quit()
+        # quit()
     fixed_text = original_text
     results = get_ginger_result(original_text)
 
     # Correct grammar
     if(not results["LightGingerTheTextResult"]):
         print("Good English :)")
-        quit()
+        # quit()
 
     # Incorrect grammar
     color_gap, fixed_gap = 0, 0

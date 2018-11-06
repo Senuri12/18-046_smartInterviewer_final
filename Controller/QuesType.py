@@ -1,0 +1,2 @@
+global qTypeChange
+qTypeChange = 'change'
