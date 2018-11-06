@@ -5,26 +5,15 @@ Created on Sun Jun 17 21:54:23 2018
 @author: ASUS
 """
 import importlib
-
 import numpy as np
 from xml.etree import ElementTree as ET
 from Controller import ConnectionToNeo4j,vari
 
 
-# ---------------------------------------------------------------------------------------------
-# Identify the state
 
-# facial = int(input("Facial :"))
-# voice = int(input("Voice :"))
-# answer = int(input("Answer :"))
+def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAsked):
 
-
-def rewardForQuestion(languageName, nodeId, difficultyLevel):
-    # languageName = "python"
-    # nodeId = 17
-    # difficultyLevel = "hard"
-
-    print("ANURUDDHA")
+    print("ANURUDDHA RESULTS")
     # print(languageName)
     print(nodeId)
     print(difficultyLevel)
@@ -32,9 +21,16 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
     importlib.reload(vari)
     userid = vari.userId
 
-    facial = 18 #have to remove
-    voice = 18  #have to remove
-    answer = 40 #have to remove
+    # print(vari.Ftesting1(aa))
+    # print(vari.Vtesting1(bb))
+    # print(vari.Atesting1(cc))
+
+    # facial = vari.Ftesting1(aa) #have to remove
+    # voice = vari.Vtesting1(bb) #have to remove
+    # answer = vari.Atesting1(cc) #have to remove
+    facial = 15
+    voice = 15
+    answer = 40
 
     total = (facial + voice + answer)
 
@@ -64,67 +60,40 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
     # -----------------------------------------------------------------------------------
     # Get the latest updated q-table from ontology - only for shown
 
-    print("@@@@@This part for get from ontology@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print("It is updated correctly \n", ConnectionToNeo4j.createQtable1(languageName))
-    print(type(ConnectionToNeo4j.createQtable1(languageName)))
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("--------Output 1-------------------------------------------")
+    print("Latest updated q-table regarding asked knowledge area \n", ConnectionToNeo4j.createQtable1(languageName, subName))
+    print(type(ConnectionToNeo4j.createQtable1(languageName, subName)))
+
 
     # data = R
-    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+    # print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
     # Get the String array matrix from ontology - split
-    I = np.array(ConnectionToNeo4j.createQtable1(languageName)).tolist()
+    I = np.array(ConnectionToNeo4j.createQtable1(languageName, subName)).tolist()
     Z = I.split(" ")
-    print("Z-spit krapu 1 \n", Z)
-    print(type(Z))
+    # QuestionAsked = "new"
+    # print("Z-spit krapu 1 \n", Z)
+    # print(type(Z)) --> Gives List
 
     # to remove the []
     number = " ".join(Z)
-    print("this remove[] \n", number)
-    print(type(number))
+    # print("this remove[] \n", number)
+    # print(type(number)) --> Gives String
+
+    if QuestionAsked == "existing":
+        R= ConnectionToNeo4j.createQtable1(languageName, subName)
+
+    else:
+        R = np.matrix([[0.0, 0.0, 0.0, 0.0, 0.0],
+                       [0.0, 0.0, 0.0, 0.0, 0.0],
+                       [0.0, 0.0, 0.0, 0.0, 0.0],
+                       [0.0, 0.0, 0.0, 0.0, 0.0],
+                       [0.0, 0.0, 0.0, 0.0, 0.0]])
 
 
 
-    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
-    # H = [float(i) if '.' in i else int(i) for i in number]
-    # H = np.asfarray(number,float)
-    # print("This str - float")
-    # print(type(H))
-    # Re-change it into 5,5 array
-    # qTableCreated = H.reshape(5,5)
-    # print(type(qTableCreated))
-    # print(qTableCreated)
-
-    # change it into matrix
-    # R = np.matrix(number)
-    # print(type(R))
-    # print(R)
-
-    R = np.matrix([[64.0, 64.0, 64.0, 64.0, 64.0],
-                   [64.0, 64.0, 64.0, 64.0, 64.0],
-                   [64.0, 64.0, 64.0, 64.0, 64.0],
-                   [64.0, 64.0, 64.0, 64.0, 64.0],
-                   [64.0, 64.0, 64.0, 64.0, 64.0]])
-
-    print("%%%%%%%%%%%%%%%%%%%%%%%%%")
-
-    print(np.unravel_index(np.argmax(R, axis=None), R.shape))
-
-    print("%%%%%%%%%%%%%%%%%%%%%%%%%")
-    # try:
-    #     I = float(ConnectionToNeo4j.createQtable1(languageName))
-    #     R = np.matrix(I)
-    # except ValueError:
-    #     print("That is not a valid number of miles")
-
-    # matrix = open(fname).read()
-    # matrix = [item.split('\n') for item in matrix.split('\n')]
-    # R = matrix.reshape((matrix.shape[0], 5))
-
-    # print("Get from text file-latest updated \n", R)
-
-    print("----------------------------------------------")
+    print("------Rewarding process is starting----------------------------------------")
     # Q matrix
     Q = np.matrix(np.zeros([5, 5]))
 
@@ -176,7 +145,7 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
             max_index = int(max_index)
         max_value = Q[action, max_index]
 
-        # Q learning formula
+        # Q learning formula - Reward Function
         Q[current_state, action] = R[current_state, action] + gamma * max_value
 
     # Update Q matrix
@@ -191,30 +160,31 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
         available_act = available_actions(current_state)
         action = sample_next_action(available_act)
         update(current_state, action, gamma)
-    print("-----------------------")
-    print("New updated one \n", Q)
-    print("-----------------------")
+
+    print("New q table \n", Q)
+
     # ----------------------------------------------------------------------------------------------------------------
     # Save the Q-metrix in text file
 
-    print(" Maximum value:")
+    print(" Maximum reward value:")
     print(np.max(Q))
     T = Q * 100 / np.max(Q)
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    print("\n Convert q-table to precentage scale")
     print(T)
     # np.savetxt('Database/text.txt', T, fmt='%f')
 
-    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("--------Output 2-------------------------------------------")
+    print("Find the Difficulty level index, containing the max reward")
 
     newOne = np.unravel_index(np.argmax(T, axis=None), T.shape)
-    print(type(newOne))
+    # print(type(newOne)) --> Gives Tuple
     print(newOne)
 
     [m,n] = newOne
     print(n)
-    print(type(n))
+    # print(type(n)) --> Gives numpy.int32
     convertStr = str(n)
-    print(type(convertStr))
+    # print(type(convertStr)) --> Gives String
 
     if convertStr == "0" or convertStr == "1":
         rewardState = "hard"
@@ -228,100 +198,69 @@ def rewardForQuestion(languageName, nodeId, difficultyLevel):
 
     print(rewardState)
 
-    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
-    # print("-----New - 6-----------------------------------------")
-    # # -------------------------------------------------------
-    # # send to ontology
-    #
-    # qTableCreated = str(T)
-    #
-    # ConnectionToNeo4j.sendQtable(languageName, qTableCreated)
-    # # -------------------------------------------------------------------------------
-    # print("------New - 7----------------------------------------")
-    # # convert to probability value
-    #
-    # if state == 3:
-    #     convertProb = "{0:.0f}%".format((np.max(Q) / 10) - 11)
-    #     # convertProb = getProb - 10.0
-    #     print("Precentage of difficulty - ", convertProb)
-    # else:
-    #     convertProb = "{0:.0f}%".format(np.max(Q) / 10)
-    #     print("Precentage of difficulty - ", convertProb)
-    #
-    # # --send to precentage value to ontology--------------
-    # print(type(convertProb))
-    #
-    # convertProb2 = int(convertProb.strip("%"))
-    # print(convertProb2)
-    #
-    # # --identify the state--------------
-    # print("------New - 8----------------------------------------")
-    # if convertProb2 <= 15:
-    #     rewardState = "hard"
-    # elif convertProb2 <= 30:
-    #     rewardState = "medium"
-    # else:
-    #     rewardState = "easy"
-    #
-    # print(rewardState)
-    # print(type(rewardState))
+    # -------------------------------------------------------
+    # send to ontology
+    print("\n Then the updated q-table is sent to the ontology")
+
+    qTableCreated = str(T)
+
+    ConnectionToNeo4j.sendQtable(languageName, subName, qTableCreated)
+    # -------------------------------------------------------------------------------
+
 
     # --update the ontology---------------------------
-    print("-------New - 9- update the existing list--------------------------------------")
+    print("--------Output 3-------------------------------------------")
+    print("Get the existing difficulty list \n")
 
     print(ConnectionToNeo4j.getDifficultyList(userid, languageName, difficultyLevel))
 
     getDiffList = str(ConnectionToNeo4j.getDifficultyList(userid, languageName, difficultyLevel))
-    print("get existing list", getDiffList)
-    print(type(getDiffList))
+    print(getDiffList)
+    # print(type(getDiffList))
 
-    print("########exiting list 1 gattaa \n")
+
 
     getDiffList2 = getDiffList.split(',')
     getDiffList2.remove(str(nodeId))
     getDiffList3 = list(map(int, getDiffList2))
-    print("this removed node and int it", getDiffList3)
-    print(type(getDiffList3))
+    print("then removed node and int it \n", getDiffList3)
+    # print(type(getDiffList3)) --> Gives list
     str_getDiffList3 = ','.join(str(e) for e in getDiffList3)
-    print("This is converted str", str_getDiffList3)
-    print(type(str_getDiffList3))
+    print("Convert to String to save \n", str_getDiffList3)
+    # print(type(str_getDiffList3)) --> Gives string
 
-    print("#######now get the new list to update exiting one \n")
 
     # update the existing category with new value
     ConnectionToNeo4j.sendExistingDifficultyList(userid, languageName, difficultyLevel, str_getDiffList3)
 
-    print("-------New - 10- update the new list--------------------------------------")
+    print("\n --------Output 4-------------------------------------------")
+    print("Get the new difficulty list to update \n")
 
     # get the new category list
 
     getNewList = ConnectionToNeo4j.getNewRewardList(userid, languageName, rewardState)
     print(ConnectionToNeo4j.getNewRewardList(userid, languageName, rewardState))
-    print(type(getNewList))
-    print(type(nodeId))
+    # print(type(getNewList)) --> Gives string
+    # print(type(nodeId)) --> Gives Integer
 
     str_nodeId = str(nodeId)
-    print(type(str_nodeId))
+    # print(type(str_nodeId)) --> Gives String
 
     getnewList = getNewList.split(',')
-    print("1", getnewList)
     getnewList.append(str_nodeId)
     print("append new nod = ", getnewList)
-    # getDiffList4 =  [int(i) for i in appendNewNode]
-    # print("this append and transfer int  ", getDiffList4)
-    # print(type(getDiffList4))
-    str_getDiffList4 = ','.join(str(e) for e in getnewList)
-    print("This is converted str", str_getDiffList4)
-    print(type(str_getDiffList4))
 
-    print("Now it appended \n", str_getDiffList4)
+    str_getDiffList4 = ','.join(str(e) for e in getnewList)
+    print("converted to string =", str_getDiffList4)
+
+    print("Appended new list \n", str_getDiffList4)
 
     # send to the new list to the new category
 
     ConnectionToNeo4j.sendNewDifficultyList(userid, languageName, rewardState, str_getDiffList4)
-    print(type(str_getDiffList4))
 
 
 
-# rewardForQuestion("python",17,"medium")
+
+# rewardForQuestion("python","hierarchical inheritance",17,"easy","new")

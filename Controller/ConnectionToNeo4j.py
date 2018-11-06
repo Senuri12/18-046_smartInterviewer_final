@@ -309,16 +309,16 @@ def sessionMarksStoring(Userid,Session,question,marks):
 
 
 
-def createQtable1(languageName):
-    exist = "MATCH (n:language) where n.Name='" + languageName + "' return n.qtable"
+def createQtable1(languageName, subName):
+    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'})RETURN b.qtable"
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
 
 
 
 # this is to send and update values
-def sendQtable(languageName,qTableCreated):
-    query = "Match (n:language) where n.Name='" + languageName + "' SET n.qtable='" + qTableCreated + "'  RETURN n.qtable"
+def sendQtable(languageName,subName,qTableCreated):
+    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.qtable='" + qTableCreated + "'  RETURN b.qtable"
     qtableValue1 = graph.run(query).evaluate()
     return qtableValue1
 
