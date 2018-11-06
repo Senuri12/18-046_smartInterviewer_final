@@ -1,7 +1,7 @@
 import importlib
 
 from py2neo import Graph
-import vari
+from Controller import vari
 graph = Graph()
 
 
