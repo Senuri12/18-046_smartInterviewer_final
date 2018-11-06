@@ -1,8 +1,8 @@
 import importlib
 
 from py2neo import Graph
-from Controller import vari
-graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
+import vari
+graph = Graph()
 
 
 def ontologyQuestionGen(id):
