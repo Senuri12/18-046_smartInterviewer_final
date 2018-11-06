@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="windows-1252">
+<<<<<<< HEAD
+=======
+    <file url="file://$PROJECT_DIR$/Controller/inforetrievaltest.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Controller/inforetrievel.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Controller/inforetrievel.py" charset="UTF-8" />
+>>>>>>> 3c02ac1e99fe7b41f03eda91f157f42e1a211e03
     <file url="file://$PROJECT_DIR$/Controller/questionSaver_testing.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Controller/test.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/templates/bot.html" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1252" />
   </component>
