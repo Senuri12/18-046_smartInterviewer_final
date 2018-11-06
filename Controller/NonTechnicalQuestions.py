@@ -117,7 +117,7 @@ def generate_cv_questions():
 
                 print(tech)
                 print("tech printed")
-                technology_list = NestedQuestionCreator.nonTechnicalKeywordSeelector(tech,modify_random_proj_que)
+                technology_list = NestedQuestionCreator.nonTechnicalKeywordSeelector(tech)
                 print("hello tech")
                 print(technology_list)
                 # print("check validity")

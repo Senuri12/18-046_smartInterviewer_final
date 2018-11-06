@@ -83,9 +83,9 @@ def gen_Question(keywords,qno):
 
     parser = GingerIt()
     grammer_corrected_question_list = parser.parse(question)
-    grammer_corrected_question = grammer_corrected_question_list.get("result")
-    print(grammer_corrected_question)
-    print(vik_test_codes.question(grammer_corrected_question, qno))
+    question = grammer_corrected_question_list.get("result")
+    print(question ,"hiiiiiiiiiiiiiiiiiii")
+    print(vik_test_codes.question(question, qno))
 
     #jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
     voice_record = AudioRecorder.audio_recorder(qno)

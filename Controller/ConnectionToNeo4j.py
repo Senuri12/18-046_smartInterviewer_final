@@ -2,7 +2,7 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
+graph = Graph()
 
 
 def ontologyQuestionGen(id):
@@ -210,9 +210,15 @@ def getMatchingTopicsNonTech(db):
     return availability
 
 
-def cvProjectTech(db,db2,pid,userId):
+# def cvProjectTech(db,db2,pid,userId):
+#   # query = "MATCH (j:"+db+"{pid:'"+ pid+"'}) RETURN j.technologies"
+#   query = "MATCH (j:" + db + "{pid:'" + pid + "'}) - [r: projects_details]->(b:" + db2 + "{uid:'" + userId + "'}) RETURN b.technologies"
+#   gen_Question = graph.run(query).evaluate()
+#   print(gen_Question)
+#   return gen_Question
+def cvProjectTech(db,topic,userId):
   # query = "MATCH (j:"+db+"{pid:'"+ pid+"'}) RETURN j.technologies"
-  query = "MATCH (j:" + db + "{pid:'" + pid + "'}) - [r: projects_details]->(b:" + db2 + "{uid:'" + userId + "'}) RETURN b.technologies"
+  query = "MATCH (j:" + db + "{topic:'" + topic + "'}) RETURN j."+ userId + ""
   gen_Question = graph.run(query).evaluate()
   print(gen_Question)
   return gen_Question
@@ -309,16 +315,16 @@ def sessionMarksStoring(Userid,Session,question,marks):
 
 
 
-def createQtable1(languageName):
-    exist = "MATCH (n:language) where n.Name='" + languageName + "' return n.qtable"
+def createQtable1(languageName, subName):
+    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'})RETURN b.qtable"
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
 
 
 
 # this is to send and update values
-def sendQtable(languageName,qTableCreated):
-    query = "Match (n:language) where n.Name='" + languageName + "' SET n.qtable='" + qTableCreated + "'  RETURN n.qtable"
+def sendQtable(languageName,subName,qTableCreated):
+    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.qtable='" + qTableCreated + "'  RETURN b.qtable"
     qtableValue1 = graph.run(query).evaluate()
     return qtableValue1
 
