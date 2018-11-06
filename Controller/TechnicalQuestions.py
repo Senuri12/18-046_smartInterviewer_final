@@ -1,7 +1,7 @@
 import importlib
 
 from Controller import NonTechnicalQuestions, ConnectionToNeo4j, TechnicalQuestionCreators, NestedQuestionCreator,SpeachToText,CreateReward
-from Controller import DifficultyLevelSelector,vari
+from Controller import DifficultyLevelSelector,vari,QuesType
 import requests,math,random
 from gingerit.gingerit import GingerIt
 
@@ -168,7 +168,7 @@ def question_gen():
                 print(question_number)
                 print("this is prev marksssssssssssss")
 
-            elif prev1_que_count != 6 and prev2_que_count != 7 and question_number < 20:
+            elif prev1_que_count != 6 and prev2_que_count != 7 and question_number < 20 :
 
                 prev1_ans_result = ConnectionToNeo4j.getQuestionMarks(db2,db3,userId,sessionId,p1_send_question)
                 prev2_ans_result = ConnectionToNeo4j.getQuestionMarks(db2,db3,userId,sessionId,p2_send_question)
@@ -192,15 +192,63 @@ def question_gen():
                 print(question_number)
                 print("this is prev marksssssssssssss")
 
+            if prev1_que_count != 6 and prev2_que_count != 7 and prev1_que_count == 7 and question_number < 20:
+
+                prev1_ans_result = 0.2
+                prev2_ans_result = ConnectionToNeo4j.getQuestionMarks(db2, db3, userId, sessionId, p2_send_question)
+                prev2_ans_result = float(prev2_ans_result)
+                print("javaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                print(prev1_que_count)
+                print(prev2_que_count)
+
+                print("javaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                print("this is prev marksssssssssssss")
+                print(prev1_ans_result)
+                print(p1_send_question)
+                print(question_number)
+                print("this is prev marksssssssssssss")
+
+                print("this is prev marksssssssssssss")
+                print(prev2_ans_result)
+                print(p2_send_question)
+                print(question_number)
+                print("this is prev marksssssssssssss")
+
+            elif prev1_que_count != 6 and prev2_que_count != 7 and question_number < 20 :
+
+                prev1_ans_result = ConnectionToNeo4j.getQuestionMarks(db2, db3, userId, sessionId, p1_send_question)
+                prev2_ans_result = ConnectionToNeo4j.getQuestionMarks(db2, db3, userId, sessionId, p2_send_question)
+
+                prev1_ans_result = float(prev1_ans_result)
+                prev2_ans_result = float(prev2_ans_result)
+                print("javaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                print(prev1_que_count)
+                print(prev2_que_count)
+
+                print("javaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                print("this is prev marksssssssssssss")
+                print(prev1_ans_result)
+                print(p1_send_question)
+                print(question_number)
+                print("this is prev marksssssssssssss")
+
+                print("this is prev marksssssssssssss")
+                print(prev2_ans_result)
+                print(p2_send_question)
+                print(question_number)
+                print("this is prev marksssssssssssss")
 
             # difficulty level  selection
-            if prev1_ans_result >= 0.5 and prev2_ans_result >= 0.5:
+            if prev1_ans_result >= 0.5 and prev2_ans_result >= 0.5 and QuesType.qTypeChange == 'change':
                 diff_level = DifficultyLevelSelector.increase_difficulty_level(diff_level)
-            elif prev1_ans_result < 0.5 and prev2_ans_result < 0.5:
+            elif prev1_ans_result < 0.5 and prev2_ans_result < 0.5 and QuesType.qTypeChange == 'change':
                 diff_level = DifficultyLevelSelector.decrease_difficulty_level(diff_level)
             print(diff_level)
 
+            if prev1_ans_result >= 0.5 and prev2_ans_result >= 0.5 and QuesType.qTypeChange == 'continueSame':
+                diff_level = DifficultyLevelSelector.increase_difficulty_level(diff_level)
 
+            print(diff_level)
 
             # get the list of nodes according to the difficulty level
             taking_list = DifficultyLevelSelector.adding_diff_level_val_list(userId, user_diff,db_diff, random_table, diff_level)

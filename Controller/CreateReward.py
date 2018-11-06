@@ -21,6 +21,7 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     importlib.reload(vari)
     userid = vari.userId
 
+<<<<<<< HEAD
     # print(vari.Ftesting1(aa))
     # print(vari.Vtesting1(bb))
     # print(vari.Atesting1(cc))
@@ -31,6 +32,11 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     facial = 15
     voice = 15
     answer = 40
+=======
+    facial = 10 #have to remove
+    voice = 10  #have to remove
+    answer = 20 #have to remove
+>>>>>>> 993c7c70a30a37437df02741f7abdf5506c1dea5
 
     total = (facial + voice + answer)
 
@@ -77,6 +83,7 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
 
     # to remove the []
     number = " ".join(Z)
+<<<<<<< HEAD
     # print("this remove[] \n", number)
     # print(type(number)) --> Gives String
 
@@ -90,6 +97,37 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
                        [0.0, 0.0, 0.0, 0.0, 0.0],
                        [0.0, 0.0, 0.0, 0.0, 0.0]])
 
+=======
+    print("this remove[] \n", number)
+    print(type(number))
+
+    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+
+    # H = [float(i) if '.' in i else int(i) for i in number]
+    # H = np.asfarray(number,float)
+    # print("This str - float")
+    # print(type(H))
+    # Re-change it into 5,5 array
+    # qTableCreated = H.reshape(5,5)
+    # print(type(qTableCreated))
+    # print(qTableCreated)
+
+    # change it into matrix
+    # R = np.matrix(number)
+    # print(type(R))
+    # print(R)
+
+    R = np.matrix([[64.0, 64.0, 64.0, 64.0, 64.0],
+                   [64.0, 64.0, 64.0, 64.0, 64.0],
+                   [64.0, 64.0, 64.0, 64.0, 64.0],
+                   [64.0, 64.0, 64.0, 64.0, 64.0],
+                   [64.0, 64.0, 64.0, 64.0, 64.0]])
+    # try:
+    #     I = float(ConnectionToNeo4j.createQtable1(languageName))
+    #     R = np.matrix(I)
+    # except ValueError:
+    #     print("That is not a valid number of miles")
+>>>>>>> 993c7c70a30a37437df02741f7abdf5506c1dea5
 
 
 
@@ -97,13 +135,13 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     # Q matrix
     Q = np.matrix(np.zeros([5, 5]))
 
-    if state == 5:
+    if state == 1:
         R[0, 4] = total
-    elif state == 4:
+    elif state == 2:
         R[1, 3] = total
     elif state == 3:
         R[2, 2] = total
-    elif state == 2:
+    elif state == 4:
         R[3, 1] = total
     else:
         R[4, 0] = total
@@ -171,8 +209,9 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     T = Q * 100 / np.max(Q)
     print("\n Convert q-table to precentage scale")
     print(T)
-    # np.savetxt('Database/text.txt', T, fmt='%f')
+    np.savetxt('Database/text.txt', T, fmt='%f')
 
+<<<<<<< HEAD
     print("--------Output 2-------------------------------------------")
     print("Find the Difficulty level index, containing the max reward")
 
@@ -185,18 +224,44 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     # print(type(n)) --> Gives numpy.int32
     convertStr = str(n)
     # print(type(convertStr)) --> Gives String
+=======
+    print("-----New - 6-----------------------------------------")
+    # -------------------------------------------------------
+    # send to ontology
 
-    if convertStr == "0" or convertStr == "1":
+    qTableCreated = str(T)
+
+    ConnectionToNeo4j.sendQtable(languageName, qTableCreated)
+    # -------------------------------------------------------------------------------
+    print("------New - 7----------------------------------------")
+    # convert to probability value
+>>>>>>> 993c7c70a30a37437df02741f7abdf5506c1dea5
+
+    if state == 3:
+        convertProb = "{0:.0f}%".format((np.max(Q) / 10) - 11)
+        # convertProb = getProb - 10.0
+        print("Precentage of difficulty - ", convertProb)
+    else:
+        convertProb = "{0:.0f}%".format(np.max(Q) / 10)
+        print("Precentage of difficulty - ", convertProb)
+
+    # --send to precentage value to ontology--------------
+    print(type(convertProb))
+
+    convertProb2 = int(convertProb.strip("%"))
+    print(convertProb2)
+
+    # --identify the state--------------
+    print("------New - 8----------------------------------------")
+    if convertProb2 <= 15:
         rewardState = "hard"
-
-    elif convertStr == "2":
+    elif convertProb2 <= 30:
         rewardState = "medium"
-
     else:
         rewardState = "easy"
 
-
     print(rewardState)
+<<<<<<< HEAD
 
 
     # -------------------------------------------------------
@@ -208,6 +273,9 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     ConnectionToNeo4j.sendQtable(languageName, subName, qTableCreated)
     # -------------------------------------------------------------------------------
 
+=======
+    print(type(rewardState))
+>>>>>>> 993c7c70a30a37437df02741f7abdf5506c1dea5
 
     # --update the ontology---------------------------
     print("--------Output 3-------------------------------------------")
@@ -262,5 +330,9 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
 
 
 
+<<<<<<< HEAD
 
 # rewardForQuestion("python","hierarchical inheritance",17,"easy","new")
+=======
+# rewardForQuestion()
+>>>>>>> 993c7c70a30a37437df02741f7abdf5506c1dea5
