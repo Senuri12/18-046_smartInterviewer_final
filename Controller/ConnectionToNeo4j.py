@@ -2,7 +2,7 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-graph = Graph()
+graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
 
 
 def ontologyQuestionGen(id):
@@ -55,14 +55,6 @@ def getsessionmarks1():
      result['q' + str(x + 1)] = str(gen_Question)
 
   return result
-
-
-
-
-
-
-
-
 
 
 def login(email):
@@ -316,7 +308,9 @@ def sessionMarksStoring(Userid,Session,question,marks):
 
 
 def createQtable1(languageName, subName):
-    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'})RETURN b.qtable"
+    uid = vari.userId
+    print(uid)
+    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'})RETURN b." + uid + ""
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
 
@@ -324,7 +318,8 @@ def createQtable1(languageName, subName):
 
 # this is to send and update values
 def sendQtable(languageName,subName,qTableCreated):
-    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.qtable='" + qTableCreated + "'  RETURN b.qtable"
+    uid = vari.userId
+    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.uid='" + qTableCreated + "'  RETURN b." + uid + ""
     qtableValue1 = graph.run(query).evaluate()
     return qtableValue1
 
@@ -355,6 +350,8 @@ def sendNewDifficultyList(userid,languageName,rewardState,str_getDiffList4):
     exist = "MATCH(n: user_difficulty{uid: '" + userid + "'}) - [r: level]->(b:difficulty{technology: '" + languageName + "'}) SET b." + rewardState + " = '" + str_getDiffList4 + "' return b."+rewardState+""
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
+
+
 
 
 #create a cv

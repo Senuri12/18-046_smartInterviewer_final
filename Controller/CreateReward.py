@@ -275,6 +275,6 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
 
 
 
-# rewardForQuestion("python","tuple",10,"hard","new")
+rewardForQuestion("python","tuple",12,"easy","new")
 
 
