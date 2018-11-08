@@ -8,7 +8,7 @@ import test
 import userDetails,jaha
 from threading import Thread
 import time
-from Controller import MainQuestionGenerator
+from Controller import MainQuestionGenerator,vari
 
 
 
@@ -301,9 +301,41 @@ def get_post_cv_javascript_data():
     usprotwo = str(request.form['uprotwo'])
     ustech2 = str(request.form['utech2'])
 
+    techsAvailable = ""
+    infoRetList = ""
+    finalFamiliarTechList = ""
+    techWord_list = usftech.split(',')
+    for techWord in techWord_list:
+        availability_node = ConnectionToNeo4j.getMatchingTopicsNonTech(techWord)
+        print(techWord)
+        print(availability_node)
+        if availability_node == True:
+            print("available")
+            techsAvailable = techsAvailable + "," + techWord
+            print(techsAvailable)
+        else:
+            print("not available")
+            infoRet = "0"
+            if infoRet != "0":
+                print(infoRetList)
+                infoRetList = infoRetList + "," + infoRet
+                print(infoRetList)
+
+    finalFamiliarTechList = techsAvailable + "," + infoRetList
+    print(finalFamiliarTechList)
+    if finalFamiliarTechList[0] == ',':
+        print("in")
+        finalFamiliarTechList = finalFamiliarTechList[1:]
+        print(finalFamiliarTechList)
+    stringLength = len(finalFamiliarTechList) - 1
+    if finalFamiliarTechList[stringLength] == ',':
+        print("hahaa")
+        finalFamiliarTechList = finalFamiliarTechList[:stringLength]
+    print(finalFamiliarTechList)
+
     importlib.reload(vari)
     uid = vari.userId
-    fresult = ConnectionToNeo4j.createNewCv(uid,fname,usage,usschool,usuni,usdob,usemail,ustpno,usweak,usstrengh,usidlcmp,usftech,usproone,ustech1,usprotwo,ustech2)
+    fresult = ConnectionToNeo4j.createNewCv(uid,fname,usage,usschool,usuni,usdob,usemail,ustpno,usweak,usstrengh,usidlcmp,finalFamiliarTechList,usproone,ustech1,usprotwo,ustech2)
     print(fname)
 
 # @app.route('/dum15')

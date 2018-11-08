@@ -2,7 +2,7 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
+graph = Graph()
 
 
 def ontologyQuestionGen(id):
@@ -38,9 +38,6 @@ def getsessionmarks(no):
      result['q' + str(x + 1)] = str(gen_Question)
 
   return result
-
-
-
 
 
 def getsessionmarks1():
@@ -224,7 +221,7 @@ def getdiffLevelList(userId,db,db2,techno,level):
     print(gen_list)
     print("my generated list")
     return gen_list
-getdiffLevelList("uid002","user_difficulty","difficulty","python","easy")
+# getdiffLevelList("uid002","user_difficulty","difficulty","python","easy")
 
 def getNestedDiffLevelList(userId,db,db2,db3,techno,level):
     query = "MATCH (j:" + db + "{uid:'" + userId + "'}) - [r: level]->(b:" + db2 + "{technology:'" + techno + "'}) -[r2:nested_level] ->(c:"+db3+") RETURN c." + level+""

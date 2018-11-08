@@ -79,7 +79,17 @@ def generate_cv_questions():
 
             # print(question_number)
             # print("hiiiiiiiiiiiiiiiiii printing count")
+            if random_que == "6":
+                global technology_list
+                tech = SpeachToText.validation("", typo2,typo,"question"+str(question_number))[1]
 
+                tech = NestedQuestionCreator.keywordSelector("",tech.lstrip(),"1","")
+
+                print(tech)
+                print("tech printed")
+                technology_list = NestedQuestionCreator.nonTechnicalKeywordSeelector(tech)
+                print("hello tech")
+                print(technology_list)
 
             #gets an input to ask questions
             if random_que=="5":
@@ -110,16 +120,7 @@ def generate_cv_questions():
                 # print(question_number)
                 # print("hiiiiiiiiiiiiiiiiii printing count")
 
-                global technology_list
-                tech = SpeachToText.validation("", typo2,typo,"question"+str(question_number))[1]
 
-                tech = NestedQuestionCreator.keywordSelector("",tech.lstrip(),"1","")
-
-                print(tech)
-                print("tech printed")
-                technology_list = NestedQuestionCreator.nonTechnicalKeywordSeelector(tech)
-                print("hello tech")
-                print(technology_list)
                 # print("check validity")
                 # answer_validity = input()
 
