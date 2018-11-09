@@ -10,7 +10,7 @@ from Controller import ConnectionToNeo4j,vari
 
 
 
-def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAsked):
+def rewardForQuestion(languageName, subName, nodeId, difficultyLevel):
 
     print("ANURUDDHA RESULTS")
     # print(languageName)
@@ -74,7 +74,7 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     # Get the String array matrix from ontology - split
     I = np.array(ConnectionToNeo4j.createQtable1(languageName, subName)).tolist()
     Z = I.split(" ")
-    # QuestionAsked = "new"
+    QuestionAsked = "new"
     # print("Z-spit krapu 1 \n", Z)
     # print(type(Z)) --> Gives List
 
@@ -275,6 +275,6 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
 
 
 
-# rewardForQuestion("python","tuple",10,"hard","new")
+rewardForQuestion("python","tuple",12,"easy")
 
 

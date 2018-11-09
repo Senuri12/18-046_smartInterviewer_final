@@ -54,7 +54,6 @@ def getsessionmarks1():
   return result
 
 
-
 def login(email):
   session = ""
   query = "MATCH (j:oneUser{email:'" + email + "'}) RETURN j.id"
@@ -324,7 +323,9 @@ def sessionMarksStoring(Userid,Session,question,marks):
 
 
 def createQtable1(languageName, subName):
-    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'})RETURN b.qtable"
+    uid = vari.userId
+    print(uid)
+    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'})RETURN b." + uid + ""
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
 
@@ -340,7 +341,8 @@ def checkuserinnwadas(uid):
 
 # this is to send and update values
 def sendQtable(languageName,subName,qTableCreated):
-    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.qtable='" + qTableCreated + "'  RETURN b.qtable"
+    uid = vari.userId
+    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.uid='" + qTableCreated + "'  RETURN b." + uid + ""
     qtableValue1 = graph.run(query).evaluate()
     return qtableValue1
 
@@ -371,6 +373,15 @@ def sendNewDifficultyList(userid,languageName,rewardState,str_getDiffList4):
     exist = "MATCH(n: user_difficulty{uid: '" + userid + "'}) - [r: level]->(b:difficulty{technology: '" + languageName + "'}) SET b." + rewardState + " = '" + str_getDiffList4 + "' return b."+rewardState+""
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
+
+
+#get hard state to show suggestion
+def getHardList(userid,languageName):
+    exist = "MATCH(n: user_difficulty{uid: '" + userid + "'}) - [r: level]->(b:difficulty{technology: '" + languageName + "'}) return b.hard"
+    qtableValue = graph.run(exist).evaluate()
+    return qtableValue
+
+
 
 
 #create a cv
@@ -482,8 +493,27 @@ def getLastCreatedUid():
 
 # getLastCreatedUid()
 
+def getQuestionNumberToSave(userId,sessionNumber,qnumber):
+    queryVoice1 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
+    generate_qNumber = graph.run(queryVoice1).evaluate()
+    return generate_qNumber
+
+def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
+    VoiceSessionNum = "Vses" + sessionNumber
+    saveMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + VoiceSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
+    generate_mark = graph.run(saveMarkQuery).evaluate()
+    return generate_mark
 
 
+# def getVoiceResultReward():
+#     uid = vari.userId
+#     sessionNo = vari.sessionId
+#
+#
+#     query = "MATCH (u: userNode{userId :'" + uid + "'}) - [s: connectToSession]->(i:interviewSession{number : '" + sessionNo + "'}) RETURN collect(i." + abc + "")"
+#     gen_Question = graph.run(query).evaluate()
+#     print(gen_Question)
+#     return gen_Question
 
 
 
