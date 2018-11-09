@@ -491,6 +491,8 @@ def getLastCreatedUid():
     print(useridz)
     return useridz
 
+#----------------ayesh voice-------------------------------
+
 #ayesh voice createVoiceUser
 def createVoiceUser(userId):
     voiceNode1 = "Match(m: root{Name: 'VoiceResult'}) CREATE (m) -[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})"
@@ -517,7 +519,33 @@ def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
     generate_mark = graph.run(saveMarkQuery).evaluate()
     return generate_mark
 
+#----------------ayesh facial-----------------------------
 
+#ayesh facial createVoiceUser
+def createFacialUser(userId):
+    facialNode1 = "Match(m: root{Name: 'FacialResult'}) CREATE (m) -[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})"
+    create_facial_node = graph.run(facialNode1).evaluate()
+    return create_facial_node
+
+#ayesh voice createVoiceUserSession
+def createFacialUserSession(userId,sessionNumber):
+    FacialSessionNum = "Fses" + sessionNumber
+    createFacialUserSession = "MATCH (m:root{Name:'FacialResult'})-[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})CREATE (u) - [s: connectToSession]->(i:interviewSession{number : '"+FacialSessionNum+"'})"
+    create_Facial_ses_node = graph.run(createFacialUserSession).evaluate()
+    return create_Facial_ses_node
+
+#ayesh facial getQuestionNumberToSave
+def getQuestionNumberToSaveFacial(userId,sessionNumber,qnumber):
+    queryFacia11 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
+    generate_facial_qNumber = graph.run(queryFacia11).evaluate()
+    return generate_facial_qNumber
+
+#ayesh voice saveVoiceMarks
+def saveFacialMarks(userId,sessionNumber,qnumber, voiceMark):
+    FacialSessionNum = "Fses" + sessionNumber
+    saveFacialMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + FacialSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
+    generate_facial_mark = graph.run(saveFacialMarkQuery).evaluate()
+    return generate_facial_mark
 
 
 
