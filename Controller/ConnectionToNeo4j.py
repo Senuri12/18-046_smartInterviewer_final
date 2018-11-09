@@ -527,7 +527,7 @@ def createFacialUser(userId):
     create_facial_node = graph.run(facialNode1).evaluate()
     return create_facial_node
 
-#ayesh voice createVoiceUserSession
+#ayesh facial createFacialUserSession
 def createFacialUserSession(userId,sessionNumber):
     FacialSessionNum = "Fses" + sessionNumber
     createFacialUserSession = "MATCH (m:root{Name:'FacialResult'})-[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})CREATE (u) - [s: connectToSession]->(i:interviewSession{number : '"+FacialSessionNum+"'})"
@@ -540,10 +540,10 @@ def getQuestionNumberToSaveFacial(userId,sessionNumber,qnumber):
     generate_facial_qNumber = graph.run(queryFacia11).evaluate()
     return generate_facial_qNumber
 
-#ayesh voice saveVoiceMarks
-def saveFacialMarks(userId,sessionNumber,qnumber, voiceMark):
+#ayesh facial saveFacialMarks
+def saveFacialMarks(userId,sessionNumber,qnumber, facialMark):
     FacialSessionNum = "Fses" + sessionNumber
-    saveFacialMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + FacialSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
+    saveFacialMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + FacialSessionNum + "'}) SET i." + qnumber + " = '" + facialMark + "' RETURN i"
     generate_facial_mark = graph.run(saveFacialMarkQuery).evaluate()
     return generate_facial_mark
 
