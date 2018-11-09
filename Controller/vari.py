@@ -1,5 +1,5 @@
 global userId
-userId = 'uid008'
+userId = 'uid001'
 global sessionId
 sessionId = '1'
 

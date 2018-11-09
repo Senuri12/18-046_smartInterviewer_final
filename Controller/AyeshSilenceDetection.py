@@ -1,8 +1,10 @@
 
 import shutil
 import os
-#from BackEnd.Controller import ConnectionToNeo4j, vari, AudioRecorder
-from Controller import ConnectionToNeo4j, vari, AudioRecorder
+#from BackEnd.Controller import ConnectionToNeo4j, vari, AyeshAudioRecorder
+from Controller import ConnectionToNeo4j, vari, AyeshAudioRecorder
+
+
 def silence_detect1(QNumber):
 
     #Passing parameters
@@ -10,11 +12,11 @@ def silence_detect1(QNumber):
     userId = vari.userId
 
 
-    outputFile = AudioRecorder.passedParaName
+    outputFile = AyeshAudioRecorder.passedParaName
 
 
     from pydub import AudioSegment, silence
-    path = 'D:/New Research/SmartInterviewer-Code/BackEnd/Database/Audio/'+outputFile
+    path = '../Database/Audio/'+outputFile
     print(path)
     # os.chdir(path)
     # files = sorted(os.listdir(os.getcwd()), key=os.path.getmtime)
@@ -67,7 +69,7 @@ def silence_detect1(QNumber):
 
     #------------------------------------------------------------
     string = "voiceq"
-    questionNumber ='7'# QNumber
+    questionNumber =QNumber
     questionOutput = string + str(questionNumber)
     print(questionOutput)
     print(type(questionOutput))

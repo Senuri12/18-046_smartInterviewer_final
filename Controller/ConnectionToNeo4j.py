@@ -399,6 +399,19 @@ def cvQuestionProjectGen(db,db2,pid,user):
   return gen_Question
 
 
+#ayesh voice getQuestionNumberToSave
+def getQuestionNumberToSave(userId,sessionNumber,qnumber):
+    queryVoice1 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
+    generate_qNumber = graph.run(queryVoice1).evaluate()
+    return generate_qNumber
+#ayesh voice saveVoiceMarks
+def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
+    VoiceSessionNum = "Vses" + sessionNumber
+    saveMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + VoiceSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
+    generate_mark = graph.run(saveMarkQuery).evaluate()
+    return generate_mark
+
+
 
 
 
