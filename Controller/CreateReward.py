@@ -13,9 +13,11 @@ from Controller import ConnectionToNeo4j,vari
 def rewardForQuestion(languageName, subName, nodeId, difficultyLevel):
 
     print("ANURUDDHA RESULTS")
-    # print(languageName)
+    print(languageName)
     print(nodeId)
     print(difficultyLevel)
+    print(subName)
+
 
     importlib.reload(vari)
     userid = vari.userId
@@ -275,6 +277,6 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel):
 
 
 
-rewardForQuestion("python","tuple",12,"easy")
+# rewardForQuestion("python","tuple",12,"easy")
 
 

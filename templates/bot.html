@@ -218,6 +218,7 @@
 
 		function callz() {
             {document.getElementById("starterx").style.display="none";}
+             {document.getElementById("tableOne").style.display="none";}
 
 
             $.get("/trigerquestion", function(data) {
@@ -355,21 +356,23 @@
         <div class="g-fullheight--md js__parallax-window" style="">
 
             <div class="g-container--md g-text-center--xs g-ver-center--md g-padding-y-150--xs g-padding-y-0--md">
-                <table style="text-align:left; width: 34%;top:0; margin-left: auto; margin-right: auto; font-weight:bold">
-                    <tr>
-                        <td><input style="transform: scale(2)" type="radio" name="gender" value="male"  onclick="diffLevelSelector('change')" required></td>
-                        <td>&emsp;Change difficulty according to marks</td>
 
-                    </tr><br>
-                     <tr>
-                        <td><input style="transform: scale(2)" type="radio" name="gender" value="female"onclick="diffLevelSelector('continueSame')"></td>
-                        <td>&emsp;Increase difficulty always</td>
-
-                    </tr>
-
-                </table><br>
                 <div class="g-margin-b-60--xs">
+
                     <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-25--xs">
+                        <table id="tableOne" style="text-align:left; width: 34%;top:0; margin-left: auto; margin-right: auto; font-weight:bold">
+                            <tr>
+                                <td><input style="transform: scale(2)" type="radio" name="gender" value="male" checked onclick="diffLevelSelector('change')" required></td>
+                                <td>&emsp;Change difficulty according to marks</td>
+
+                            </tr><br>
+                             <tr>
+                                <td><input style="transform: scale(2)" type="radio" name="gender" value="female"onclick="diffLevelSelector('continueSame')"></td>
+                                <td>&emsp;Increase difficulty always</td>
+
+                            </tr>
+
+                        </table><br>
 					<button id="starterx" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Start</button><br><br>
 
 
