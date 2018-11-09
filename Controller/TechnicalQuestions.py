@@ -1,7 +1,7 @@
 import importlib
 
 from Controller import NonTechnicalQuestions, ConnectionToNeo4j, TechnicalQuestionCreators, NestedQuestionCreator,SpeachToText,CreateReward
-from Controller import DifficultyLevelSelector,vari,QuesType
+from Controller import DifficultyLevelSelector,vari,QuesType,AyeshSilenceDetection
 import requests,math,random
 from gingerit.gingerit import GingerIt
 
@@ -293,12 +293,14 @@ def question_gen():
             print(q_list)
             print(changed_know_list)
             question_number = question_number+1
+            AyeshSilenceDetection.silence_detect1(question_number)
+
 
             actual_question = TechnicalQuestionCreators.gen_Question(technical_question,question_number,"nonnested")
             parser = GingerIt()
 
             #creates the difficulty levels
-            CreateReward.rewardForQuestion(random_table,technical_question,random_que,diff_level)
+            CreateReward.rewardForQuestion(random_table,random_que_string,random_que,diff_level)
 
              # TextToSpeechConverter.text_to_speech(actual_question,lang)
             qprinted = qprinted+1;
@@ -330,6 +332,7 @@ def question_gen():
                     print("nested keyword value")
                     print(nested)
                     question_number = question_number + 1
+                    AyeshSilenceDetection.silence_detect1(question_number)
 
                     actual_question = TechnicalQuestionCreators.gen_Question(nested,question_number,"nested")
                     # TextToSpeechConverter.text_to_speech(actual_question, lang)

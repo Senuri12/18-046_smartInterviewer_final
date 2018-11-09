@@ -1,6 +1,6 @@
 import importlib
 import random,time
-from Controller import ConnectionToNeo4j,QuestionCreator,NestedQuestionCreator,vari,AudioRecorder
+from Controller import ConnectionToNeo4j,QuestionCreator,NestedQuestionCreator,vari,AudioRecorder,AyeshSilenceDetection
 from Controller import SpeachToText
 from gingerit.gingerit import GingerIt
 import requests
@@ -69,6 +69,7 @@ def generate_cv_questions():
             print("jokes"+non_technical_question)
 
             question_number = question_number + 1
+            AyeshSilenceDetection.silence_detect1(question_number)
 
             actual_question = QuestionCreator.gen_Question(non_technical_question,question_number)
             # print(actual_question)
@@ -96,6 +97,7 @@ def generate_cv_questions():
                 # voice_record = AudioRecorder.audio_recorder(question_number)
                 # answer_validity = SpeachToText.validation("", typo2, typo, "question" + str(question_number))[0]
                 project_question = ""
+                random_proj_que = ""
                 pro = ConnectionToNeo4j.getProjects(vari.userId)
                 print(pro)
                 if not  pro:
@@ -104,9 +106,9 @@ def generate_cv_questions():
                     random_proj_que = random.choice(pro)
                     # print(modify_random_proj_que)
 
-                    project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2, db3, random_proj_que, userid)
+                project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2, db3, random_proj_que, userid)
                 question_number = question_number + 1
-
+                AyeshSilenceDetection.silence_detect1(question_number)
 
                 # for id in range (1,pro+1):
                 #     pro_list.append(str(id))
