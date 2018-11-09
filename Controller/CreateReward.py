@@ -17,9 +17,11 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel):
     print(difficultyLevel)
 
     print("ANURUDDHA RESULTS")
-    # print(languageName)
+    print(languageName)
     print(nodeId)
     print(difficultyLevel)
+    print(subName)
+
 
     importlib.reload(vari)
     userid = vari.userId
