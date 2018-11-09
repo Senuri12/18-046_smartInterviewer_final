@@ -77,9 +77,6 @@ def login(email):
   new_file.close()
 
 
-
-
-
   email = str(email)
   query = "MATCH (j:oneUser{email:'"+email+"'}) RETURN j.password"
   gen_Question = graph.run(query).evaluate()
@@ -110,7 +107,9 @@ def register(un,pw,email):
 
   query = "MATCH(c: loginUser{Name: 'userdb'}) CREATE(c) - [x: has_users]-> (a: oneUser{id:'"+useridzz+"',username :'"+un+"',email:'"+email+"',password:'"+pw+"'})"
   graph.run(query).evaluate()
-  return ""
+
+  # return ""
+  return useridzz
 
 
 def getValueFromdb(subsection,type):
@@ -184,8 +183,8 @@ def getMatchingTopics(db,topic):
 def getMatchingNestedTopicId(db,topic):
     query = "MATCH(a:language{Name:'" + db + "'}) - [r: has]->(b:sub{Name:'"+topic+"'}) -[r2:nested_has]->(c:subB) RETURN c.id"
     get_availability = graph.run(query).evaluate()
-    print(get_availability)
     return get_availability
+# getMatchingNestedTopicId("java","oop")
 
 def getMatchingNestedTopic(db,topic,nesid):
     query = "MATCH(a:language{Name:'" + db + "'}) - [r: has]->(b:sub{Name:'"+topic+"'}) -[r2:nested_has]->(c:subB{id:'"+nesid+"'}) RETURN c.Name"
@@ -195,10 +194,29 @@ def getMatchingNestedTopic(db,topic,nesid):
 
 
 def getMatchingTopicsNonTech(db):
+
     query = "MATCH(a:language{Name:'" + db + "'}) - [r: has]->(b:sub)RETURN count(b)>0"
     availability = graph.run(query).evaluate()
+
     return availability
 
+
+def getMatchingTopicsNonTech1(db):
+    query = "MATCH(a:language{Name:'" + db + "'}) - [r: has]->(b:sub)RETURN count(b)>0"
+    availability = graph.run(query).evaluate()
+
+    if availability==True:
+        qtable = "[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0]"
+        useridz = vari.userId
+
+        query2 = "MATCH(a:language{Name:'" + db + "'}) return a." + useridz + ""
+        availability2 = graph.run(query2).evaluate()
+
+        if availability2 == None:
+            query1 = "MATCH(a:language{Name:'" + db + "'}) set a." + useridz + "='" + qtable + "'"
+            availability1 = graph.run(query1).evaluate()
+
+    return availability
 
 # def cvProjectTech(db,db2,pid,userId):
 #   # query = "MATCH (j:"+db+"{pid:'"+ pid+"'}) RETURN j.technologies"
@@ -311,6 +329,14 @@ def createQtable1(languageName, subName):
     return qtableValue
 
 
+#check user exist fro info retrievel
+def checkuserinnwadas(uid):
+    exist = "MATCH (n:CV{topic:'your strengths'}) RETURN count(n." + uid + ")>0"
+    qtableValue = graph.run(exist).evaluate()
+    print(qtableValue)
+    return qtableValue
+
+
 
 # this is to send and update values
 def sendQtable(languageName,subName,qTableCreated):
@@ -398,6 +424,63 @@ def cvQuestionProjectGen(db,db2,pid,user):
   print(gen_Question)
   return gen_Question
 
+def addDifficultyLevelsForSpecificTech(tech,easy,medium,hard):
+    # query = "MATCH(u:root{topic:'difficulty levels'})-[r:level]->(b:user_difficulty) CREATE (N: difficulty{technology:"+ tech +",easy:"+ easy +", medium:"+medium+ ",hard:"+hard+"}) MERGE(b)-[r1:level]->(N)"
+    query = "MATCH(u:root{topic:'difficulty levels'})-[r:level]->(b:user_difficulty) CREATE (N: difficulty{technology:'"+tech+"',easy:'"+easy+"',medium:'"+medium+"',hard:'"+hard+"'})MERGE(b)-[r1:level]->(N)"
+    add_node = graph.run(query).evaluate()
+    print(add_node)
+    return add_node
+# addDifficultyLevelsForSpecificTech("Maven","1,2,5,6,9,15","3,7,10,12,16","4,8,11,13,14")
+
+#retrieve the topics which are available in the db
+# def getExistingTechnologies():
+#     query = "MATCH(u:root{Name:'technical'})-[r:have]->(b:language) RETURN b.Name"
+#     node_list = graph.run(query).evaluate()
+#     print(node_list)
+#     return node_list
+# getExistingTechnologies()
+def getExistingTechnologies():
+    query = "MATCH(u:root{Name:'technical'})-[r:have]->(b:language) RETURN b.Name"
+    node_list = graph.run(query).data()
+    mylist = []
+    for x in range (0,len(node_list)):
+        mylist.append(node_list[x]['b.Name'])
+    return mylist
+# print(getExistingTechnologies())
+
+def genUserDiffLevel(uid):
+    query = "MATCH(J1:root{topic:'difficulty levels'}) CREATE (J2: user_difficulty{uid:'"+uid+"'}) MERGE(J1)-[r1:level]->(J2)"
+    node = graph.run(query).evaluate()
+    print(node)
+    return node
+
+def addDifficultyLevelsForTech(uid,tech,easy,medium,hard):
+    print(uid)
+    print(tech)
+    print(easy)
+    print(medium)
+    print(hard)
+    query = "MATCH(u:root{topic:'difficulty levels'})-[r:level]->(b:user_difficulty{uid:'"+uid+"'}) CREATE (N: difficulty{technology:'"+tech+"',easy:'"+easy+"',medium:'"+medium+"',hard:'"+hard+"'})MERGE(b)-[r1:level]->(N)"
+    # query = "MATCH(u:root{topic:'difficulty levels'})-[r:level]->(b:user_difficulty{uid:'"+uid+"'}) CREATE (b)-[:level]->(gg:technology{technology:'"+tech+"',easy:'"+easy+"',medium:'"+medium+"',hard:'"+hard+"'})"
+
+    add_node = graph.run(query).evaluate()
+    print(add_node)
+    return add_node
+# addDifficultyLevelsForTech("uid033","ccc","1,2,5,6,9,15","3,7,10,12,16","4,8,11,13,14")
+def addDiffLevelNestedNodesForTech(uid,tech,easy,medium,hard):
+    query = "MATCH(u:root{topic:'difficulty levels'})-[r:level]->(b:user_difficulty{uid:'"+uid+"'})-[r2:level]->(c:difficulty{technology:'"+tech+"'}) CREATE (N: difficulty{technology:'"+tech+"',easy:'"+easy+"',medium:'"+medium+"',hard:'"+hard+"'})MERGE(c)-[r5:nested_level]->(N)"
+    add_node2 = graph.run(query).evaluate()
+    print(add_node2)
+    return add_node2
+# addDiffLevelNestedNodesForTech("uid080","python","1,2,5,6,9,15","3,7,10,12,16","4,8,11,13,14")
+
+def getLastCreatedUid():
+    query13 = "MATCH (n:oneUser) RETURN n.id ORDER BY n.id DESC LIMIT 1"
+    useridz = graph.run(query13).evaluate()
+    print(useridz)
+    return useridz
+
+# getLastCreatedUid()
 
 
 

@@ -1,14 +1,12 @@
 import importlib
-import os
 from flask import Flask, render_template,request
 import json
-from Controller import vari,TechnicalQuestions,NonTechnicalQuestions,questionSaver_testing,ConnectionToNeo4j
+from Controller import questionSaver_testing,ConnectionToNeo4j,inforetrievel,infowhat,MainQuestionGenerator,vari,QuesType
 #test eka wenuwata sarindige py file name eka danna haha1 method eka athuleth change karanna
 import test
-import userDetails,jaha
+import userDetails
 from threading import Thread
 import time
-from Controller import MainQuestionGenerator,vari
 
 
 
@@ -35,6 +33,12 @@ def hello_world():
 
 @app.route('/interview')
 def profile():
+    open('Controller/QuesType.py', 'w').close()
+    fruits = ["global qTypeChange\n", "qTypeChange = 'change'\n"]
+    new_file = open("Controller/QuesType.py", mode="a+", encoding="utf-8")
+    new_file.writelines(fruits)
+    for line in new_file:
+        print(line)
     return render_template('bot.html')
 
 
@@ -63,6 +67,16 @@ def get_python_data():
 
     async_slow_function()
     pythondata = {"haha":"haha"}
+    return json.dumps(pythondata)
+
+
+@app.route('/alertaboutontologycreation')
+def inforetrivelontologycreate():
+
+
+    importlib.reload(infowhat)
+    print("sasasasasaslalalallala" + infowhat.valusa)
+    pythondata = {"val":infowhat.valusa}
     return json.dumps(pythondata)
 
 
@@ -131,13 +145,6 @@ def register():
     return render_template('signup.html')
 
 
-
-# @app.route('/dum1')
-# def haha1():
-#
-#     result = {"ques": test.question1}
-#     return json.dumps(result)
-#
 @app.route('/seleaaaaaaa')
 def selectionbox():
     no = ConnectionToNeo4j.noofsessions()
@@ -147,19 +154,7 @@ def selectionbox():
         result['no'+str(x+1)] = "session"+str(x+1)
 
     return json.dumps(result)
-# @app.route('/dum3')
-# def haha3():
-#
-#     result = {"ques": test.question3}
-#     return json.dumps(result)
-#
-# @app.route('/dum4')
-# def haha4():
-#
-#     result = {"ques": test.question4}
-#     return json.dumps(result)
-#
-#
+
 @app.route('/history')
 def history():
     return render_template('history.html')
@@ -186,20 +181,6 @@ def chart(a):
 
     return json.dumps(val)
 
-
-
-
-
-
-    # no = ConnectionToNeo4j.noofsessions()
-    # result = {}
-    # print(no)
-    # for x in range(0, int(no)):
-    #     result['no'+str(x+1)] = "session"+str(x+1)
-    #
-    # return json.dumps(result)
-
-
 @app.route('/chartsa')
 def chartsa():
 
@@ -207,75 +188,71 @@ def chartsa():
 
 
     return json.dumps(val)
+
+
+
+#cv new thingy
+@app.route('/dingdong')
+def dingdong():
+    print("shalalalallala")
+    importlib.reload(vari)
+    uid = vari.userId
+    val = ConnectionToNeo4j.checkuserinnwadas(uid)
+    result = {"myca": str(val)}
+    return json.dumps(result)
+
+
+
 # @app.route('/dum5')
 # def haha5():
 #
 #     result = {"ques": test.question5}
 #     return json.dumps(result)
 #
-#
-# @app.route('/dum6')
-# def haha6():
-#
-#     result = {"ques": test.question6}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum7')
-# def haha7():
-#
-#     result = {"ques": test.question7}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum8')
-# def haha8():
-#
-#     result = {"ques": test.question8}
-#     return json.dumps(result)
-#
-# @app.route('/dum9')
-# def haha9():
-#
-#     result = {"ques": test.question9}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum10')
-# def haha10():
-#
-#     result = {"ques": test.question10}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum11')
-# def haha11():
-#
-#     result = {"ques": test.question11}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum12')
-# def haha12():
-#
-#     result = {"ques": test.question12}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum13')
-# def haha13():
-#
-#     result = {"ques": test.question13}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum14')
-# def haha14():
-#
-#     result = {"ques": test.question14}
-#     return json.dumps(result)
-#
-#
+
+
+
+
+
+
+
+
+
+@app.route('/cretesaddddas', methods = ['POST'])
+def cretesomething():
+    open('Controller/infowhat.py', 'w').close()
+    fruits = ["global valusa\n", "valusa = 'ra'\n"]
+    new_file = open("Controller/infowhat.py", mode="a+", encoding="utf-8")
+    new_file.writelines(fruits)
+    for line in new_file:
+        print(line)
+
+    return ""
+
+@app.route('/setDiff', methods = ['POST'])
+def setDifficultyLevelSelector():
+    value = str(request.form['dValue'])
+    print(value)
+
+    if value == 'change':
+        open('Controller/QuesType.py', 'w').close()
+        fruits = ["global qTypeChange\n", "qTypeChange = 'change'\n"]
+        new_file = open("Controller/QuesType.py", mode="a+", encoding="utf-8")
+        new_file.writelines(fruits)
+        for line in new_file:
+            print(line)
+        new_file.close()
+
+    elif value == 'continueSame':
+        open('Controller/QuesType.py', 'w').close()
+        fruits = ["global qTypeChange\n", "qTypeChange = 'continueSame'\n"]
+        new_file = open("Controller/QuesType.py", mode="a+", encoding="utf-8")
+        new_file.writelines(fruits)
+        for line in new_file:
+            print(line)
+        new_file.close()
+
+    return ""
 
 @app.route('/cv')
 def cv():
@@ -301,83 +278,128 @@ def get_post_cv_javascript_data():
     usprotwo = str(request.form['uprotwo'])
     ustech2 = str(request.form['utech2'])
 
-    techsAvailable = ""
-    infoRetList = ""
-    finalFamiliarTechList = ""
+    techsAvailable = []
+    infoRetList = []
+    finalFamiliarTechList = []
     techWord_list = usftech.split(',')
     for techWord in techWord_list:
-        availability_node = ConnectionToNeo4j.getMatchingTopicsNonTech(techWord)
+        techWord = techWord.lower()
+        availability_node = ConnectionToNeo4j.getMatchingTopicsNonTech1(techWord)
         print(techWord)
         print(availability_node)
         if availability_node == True:
             print("available")
-            techsAvailable = techsAvailable + "," + techWord
+            techsAvailable.append(techWord)
             print(techsAvailable)
-        else:
+        elif availability_node == False:
             print("not available")
-            infoRet = "0"
-            if infoRet != "0":
-                print(infoRetList)
-                infoRetList = infoRetList + "," + infoRet
-                print(infoRetList)
+            if techWord == "c#":
+                techWord = "csharp"
+            elif techWord == "c++":
+                techWord = "cplusplus"
+            elif techWord == "c":
+                techWord = "cprogramming"
 
-    finalFamiliarTechList = techsAvailable + "," + infoRetList
+            infoList = inforetrievel.inforetrievel(techWord)
+            infoRet = infoList[0]
+            print("returning ")
+            print(infoRet)
+            print("returning ")
+
+            technicalNodeCnt = infoList[1]
+            print("returning ")
+            print(technicalNodeCnt)
+
+            if infoRet != "0":
+                infoRet = infoRet.lower()
+                print(infoRetList)
+                infoRetList.append(infoRet)
+                print(infoRetList)
+                # ##########################################3 new
+                #
+                # nodeCountValue = int(technicalNodeCnt / 3)
+                # print(nodeCountValue)
+                # changingNodeCountValue = nodeCountValue
+                # remainingValue = technicalNodeCnt - (nodeCountValue * 3)
+                # print(remainingValue)
+                # easyNodes = ""
+                # mediumNodes = ""
+                # hardNodes = ""
+                #
+                # exactCount = technicalNodeCnt
+                #
+                # while changingNodeCountValue > 0:
+                #     easyNodes = easyNodes + "," + str(exactCount)
+                #     exactCount = exactCount - 1
+                #     changingNodeCountValue = changingNodeCountValue - 1
+                # print(easyNodes)
+                # easyNodes = easyNodes[1:]
+                # print(easyNodes)
+                #
+                # changingNodeCountValue = nodeCountValue
+                #
+                # print("nooooooooooooooooooooooooooooooo")
+                # while changingNodeCountValue > 0:
+                #     mediumNodes = mediumNodes + "," + str(exactCount)
+                #     exactCount = exactCount - 1
+                #     changingNodeCountValue = changingNodeCountValue - 1
+                # print(mediumNodes)
+                # mediumNodes = mediumNodes[1:]
+                # print(mediumNodes)
+                #
+                # print("nooooooooooooooooooooooooooooooo")
+                #
+                # changingNodeCountValue = nodeCountValue + remainingValue
+                # print(changingNodeCountValue)
+                # while changingNodeCountValue > 0:
+                #     hardNodes = hardNodes + "," + str(exactCount)
+                #     exactCount = exactCount - 1
+                #     changingNodeCountValue = changingNodeCountValue - 1
+                # print(hardNodes)
+                # hardNodes = hardNodes[1:]
+                # print(hardNodes)
+                #
+                # restResult = ConnectionToNeo4j.addDifficultyLevelsForSpecificTech(infoRet, easyNodes, mediumNodes,hardNodes)
+
+                # ########################################## new
+
+    importlib.reload(infowhat)
+    open('Controller/infowhat.py', 'w').close()
+    fruits = ["global valusa\n", "valusa = 'fn'\n"]
+    new_file = open("Controller/infowhat.py", mode="a+", encoding="utf-8")
+    new_file.writelines(fruits)
+    for line in new_file:
+        print(line)
+
+
+
+
+    finalFamiliarTechList = techsAvailable +infoRetList
     print(finalFamiliarTechList)
-    if finalFamiliarTechList[0] == ',':
-        print("in")
-        finalFamiliarTechList = finalFamiliarTechList[1:]
-        print(finalFamiliarTechList)
-    stringLength = len(finalFamiliarTechList) - 1
-    if finalFamiliarTechList[stringLength] == ',':
-        print("hahaa")
-        finalFamiliarTechList = finalFamiliarTechList[:stringLength]
-    print(finalFamiliarTechList)
+    finalFamiliarTech = ','.join(finalFamiliarTechList)
+    print(finalFamiliarTech)
+    # while finalFamiliarTechList[0] == ',':
+    #     print("in")
+    #     finalFamiliarTechList = finalFamiliarTechList[1:]
+    #     print(finalFamiliarTechList)
+    # stringLength = len(finalFamiliarTechList) - 1
+    # while finalFamiliarTechList[stringLength] == ',':
+    #     print("hahaa")
+    #     finalFamiliarTechList = finalFamiliarTechList[:stringLength]
+    # print(finalFamiliarTechList)
 
     importlib.reload(vari)
     uid = vari.userId
-    fresult = ConnectionToNeo4j.createNewCv(uid,fname,usage,usschool,usuni,usdob,usemail,ustpno,usweak,usstrengh,usidlcmp,finalFamiliarTechList,usproone,ustech1,usprotwo,ustech2)
-    print(fname)
 
-# @app.route('/dum15')
-# def haha15():
-#
-#     result = {"ques": test.question15}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum16')
-# def haha16():
-#
-#     result = {"ques": test.question16}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum17')
-# def haha17():
-#
-#     result = {"ques": test.question17}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum18')
-# def haha18():
-#
-#     result = {"ques": test.question18}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum19')
-# def haha19():
-#
-#     result = {"ques": test.question19}
-#     return json.dumps(result)
-#
-#
-# @app.route('/dum20')
-# def haha20():
-#
-#     result = {"ques": test.question20}
-#     return json.dumps(result)
+    validation = ConnectionToNeo4j.checkuserinnwadas(uid)
+
+    # if validation != True:
+        # fresult = ConnectionToNeo4j.createNewCv(uid,fname,usage,usschool,usuni,usdob,usemail,ustpno,usweak,usstrengh,usidlcmp,finalFamiliarTech,usproone,ustech1,usprotwo,ustech2)
+
+    print(fname)
+    pythondata = {'val':infoRet}
+    return json.dumps(pythondata)
+
 
 
 @app.route('/registerdata', methods = ['POST'])
@@ -388,8 +410,72 @@ def get_post_javascript_data1():
     pw = str(request.form['password'])
     email = str(request.form['email'])
 
+    regUserId = ConnectionToNeo4j.register(un,pw,email)
 
-    jb = ConnectionToNeo4j.register(un,pw,email)
+    #adding difficulty db
+    availableTechnicalNode = ConnectionToNeo4j.getExistingTechnologies()
+    print(availableTechnicalNode)
+    # regUserId = ConnectionToNeo4j.getLastCreatedUid()
+    node = ConnectionToNeo4j.genUserDiffLevel(regUserId)
+
+    # availableTechnicalNodeList = (availableTechnicalNode.split(','))
+    for itt in availableTechnicalNode:
+        technicalNodeCnt = ConnectionToNeo4j.getTechNodeCount(itt)
+        print(technicalNodeCnt)
+
+        nodeCountValue = int(technicalNodeCnt / 3)
+        print(nodeCountValue)
+        changingNodeCountValue = nodeCountValue
+        remainingValue = technicalNodeCnt - (nodeCountValue * 3)
+        print(remainingValue)
+        easyNodes = ""
+        mediumNodes = ""
+        hardNodes = ""
+
+        exactCount = technicalNodeCnt
+
+        while changingNodeCountValue > 0:
+            easyNodes = easyNodes + "," + str(exactCount)
+            exactCount = exactCount - 1
+            changingNodeCountValue = changingNodeCountValue - 1
+        print(easyNodes)
+        easyNodes = easyNodes[1:]
+        print(easyNodes)
+
+        changingNodeCountValue = nodeCountValue
+
+        print("nooooooooooooooooooooooooooooooo")
+        while changingNodeCountValue > 0:
+            mediumNodes = mediumNodes + "," + str(exactCount)
+            exactCount = exactCount - 1
+            changingNodeCountValue = changingNodeCountValue - 1
+        print(mediumNodes)
+        mediumNodes = mediumNodes[1:]
+        print(mediumNodes)
+
+        print("nooooooooooooooooooooooooooooooo")
+
+        changingNodeCountValue = nodeCountValue + remainingValue
+        print(changingNodeCountValue)
+        while changingNodeCountValue > 0:
+            hardNodes = hardNodes + "," + str(exactCount)
+            exactCount = exactCount - 1
+            changingNodeCountValue = changingNodeCountValue - 1
+        print(hardNodes)
+        hardNodes = hardNodes[1:]
+        print(hardNodes)
+        restResult = ConnectionToNeo4j.addDifficultyLevelsForTech(regUserId, itt, easyNodes, mediumNodes, hardNodes)
+        if itt == "python":
+            neseasy = "NES_019,NES_018,NES_015,NES_013,NES_008"
+            nesMedium = "NES_017,NES_016,NES_014,NES_011"
+            nesHard = "NES_012,NES_009,NES_010"
+            restResult2 = ConnectionToNeo4j.addDiffLevelNestedNodesForTech(regUserId, itt, neseasy, nesMedium,nesHard)
+        if itt == "java":
+            neseasy = "NES_001,NES_002"
+            nesMedium = "NES_003,NES_005"
+            nesHard = "NES_004,NES_006"
+            restResult3 = ConnectionToNeo4j.addDiffLevelNestedNodesForTech(regUserId, itt, neseasy, nesMedium,nesHard)
+
 
 
 
