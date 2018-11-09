@@ -2,11 +2,7 @@
 <html lang="en">
 
     <head>
-
-
-
         <title>Smart Interviewer</title>
-
         <link rel="stylesheet" href="../static/css/cv1.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i|Montserrat:400,700" rel="stylesheet">
         <link href="../static/bot/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -21,11 +17,63 @@
         <link rel="apple-touch-icon" href="../static/bot/img/apple-touch-icon.png">
 		<script type='text/javascript' src="../static/bot/js/sdk.js"></script>
 
+        <style>
+        /* Center the loader */
+        #loader {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 1;
+          width: 150px;
+          height: 150px;
+          margin: -75px 0 0 -75px;
+          border: 16px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          width: 120px;
+          height: 120px;
+          -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        /* Add animation to "page content" */
+        .animate-bottom {
+          position: relative;
+          -webkit-animation-name: animatebottom;
+          -webkit-animation-duration: 1s;
+          animation-name: animatebottom;
+          animation-duration: 1s
+        }
+
+        @-webkit-keyframes animatebottom {
+          from { bottom:-100px; opacity:0 }
+          to { bottom:0px; opacity:1 }
+        }
+
+        @keyframes animatebottom {
+          from{ bottom:-100px; opacity:0 }
+          to{ bottom:0; opacity:1 }
+        }
+
+        #myDiv {
+          display: none;
+          text-align: center;
+        }
+        </style>
+
 
     </head>
     <body background="../static/img/cv/cvBackground.jpg">
- <!--background="../static/img/cv/cvBackground.jpg"-->
-
 
      <header id="head" class="navbar-fixed-top s-header js__header-sticky js__header-overlay">
             <!-- navbar -->
@@ -81,36 +129,26 @@
         <!--========== END HEADER ==========-->
 
 
-
-
-
-
-
-
         <!-- multistep form -->
-        <form id="msform">
+        <form id="msform" style="display:none">
           <!-- progressbar -->
           <ul id="progressbar">
-            <li class="active">Account Setup</li>
-            <li>Social Profiles</li>
-            <li>Personal Details</li>
+            <li class="active">Personal Details</li>
+            <li>Basic Information</li>
+            <li>Project Details</li>
           </ul>
           <!-- fieldsets -->
           <fieldset>
             <h2 class="fs-title">Personal Details</h2>
             <h3 class="fs-subtitle">Step 1</h3>
-            <input type="text" id="name" placeholder="Name" required/>
+            <input type="text" id="name" placeholder="Name" name="name" required/>
             <input type="number" id="age" placeholder="Age" required/>
             <input type="text" id="school" placeholder="School" required/>
             <input type="text" id="uni" placeholder="University"required />
             <input type="date" id="dob"  required />
             <input type="email" id="email"placeholder="Email"required>
             <input type="number" id="number"placeholder="Telephone Number"required/>
-
-
-
-
-            <input type="button" name="next" class="next action-button" value="Next" />
+          <input type="button" name="next" class="next action-button" value="Next" />
           </fieldset>
           <fieldset>
             <h2 class="fs-title">Basic Information</h2>
@@ -118,7 +156,7 @@
             <textarea rows="4" cols="50" id="weak" placeholder="Weaknesses" required></textarea>
             <textarea rows="4" cols="50" id="strength" placeholder="Strengths" required></textarea>
             <input type="text" name="twitter" id = "idlcompany" placeholder="Ideal Company"required />
-            <textarea rows="4" cols="50" id="ftech" placeholder="Familiar Technologies"required></textarea>
+            <textarea rows="4" cols="50" id = "ftech" placeholder="Familiar Technologies"required></textarea>
 
             <input type="button" name="previous" class="previous action-button" value="Previous" />
             <input type="button" name="next" class="next action-button" value="Next" />
@@ -130,17 +168,13 @@
             <h3 class="fs-subtitle">Project One</h3>
             <input type="text" name="fname" id="pro1" placeholder="Project Name" required/>
             <h4 class="fs-subtitle">Technologies Used</h4><br>
-            <input class="container" type="checkbox" id="t1b1" name="technology" value="Java"> Java
-            <input class="container" type="checkbox" id="t1b2" name="technology" value="Python" checked> Python
-            <input class="container" type="checkbox" id="t1b3" name="technology" value="AngularJS" checked>AngularJS<br>
+            <input type="text" name="p1tech" id="pro1tech" placeholder="Project Technologies" required/>
 
             <hr><br>
             <h3 class="fs-subtitle">Project Two </h3>
             <input type="text" name="fname" id="pro2" placeholder="Project Name"required />
             <h4 class="fs-subtitle">Technologies Used</h4><br>
-            <input class="container" type="checkbox" id="t2b1" name="technology" value="Java"> Java
-            <input class="container" type="checkbox" id="t2b2" name="technology" value="Python" checked> Python
-            <input class="container" type="checkbox" id="t2b3" name="technology" value="AngularJS" checked>AngularJS<br>
+            <input type="text" name="p2tech" id="pro2tech" placeholder="Project Technologies" required/>
 
             <hr><br>
             <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -148,12 +182,82 @@
           </fieldset>
         </form>
 
+
+
+
+
+
+     <form id="msform1" style="display:none">
+
+          <fieldset>
+            <h1 style="font-weight:bold;color:white;margin-top:30px" class="fs-title">Update your familier technologies.</h1>
+
+            <textarea  rows="4" cols="50" id="ftech1" placeholder="Familiar Technologies"required></textarea>
+
+              <br>
+
+            <input type="submit" name="submit" class="submit action-button" value="Update" onclick="cvDetail()" />
+          </fieldset>
+
+        </form>
+
+
+
+
+
+
+
+            <div style="display:none;" id="loader"/><br><h5>Building ontology</h5>
+
+
+
+
     <!-- Plugin JavaScript -->
         <script type="text/javascript" src="../static/vendor/jquery.min.js"></script>
         <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
 
     <script type="text/javascript" src="../static/js/cv.js"></script>
     <script>
+
+
+
+        var formVis = ""
+
+
+        console.log("llalalal")
+        $.get("/dingdong", function(data) {
+                ds = $.parseJSON(data);
+                jaja = ds.myca;
+                console.log(jaja)
+
+                if(String(jaja) == "True"){
+                    console.log("one true")
+                    formVis = "1"
+                    document.getElementById("msform").style.display = "none";
+                    document.getElementById("msform1").style.display = "block";
+                }
+                else{
+                    console.log("TWo false")
+                    formVis = "2"
+
+                    document.getElementById("msform1").style.display = "none";
+                    document.getElementById("msform").style.display = "block";
+                }
+
+
+
+            });
+
+
+
+
+
+
+
+
+      $.post("/cretesaddddas",{
+      });
+
       function cvDetail(){
         var fullname = document.getElementById("name").value;
         var userage = document.getElementById("age").value;
@@ -162,6 +266,18 @@
         var userdob = document.getElementById("dob").value;
         var useremail = document.getElementById("email").value;
         var usernumber = document.getElementById("number").value;
+
+
+
+
+
+
+
+        {#myVar = setTimeout(waitfun, milliseconds);#}
+        {#clearTimeout(myVar);#}
+
+
+
 
         console.log(fullname);
         console.log(userage);
@@ -174,65 +290,44 @@
         var weakness = document.getElementById("weak").value;
         var strength = document.getElementById("strength").value;
         var idlcomp = document.getElementById("idlcompany").value;
-        var famtech = document.getElementById("ftech").value;
+        <!--var famtech = gemba;-->
 
         console.log(weakness);
         console.log(strength);
         console.log(idlcomp);
-        console.log(famtech);
+        <!--console.log(famtech);-->
 
         var proone = document.getElementById("pro1").value;
+        var tech1  =  document.getElementById("pro1tech").value;
         var protwo = document.getElementById("pro2").value;
+        var tech2  =  document.getElementById("pro2tech").value;
+
         console.log(proone);
         console.log(protwo);
 
-        var tech1 = ""
-        var tech2 = ""
-
-        if( document.getElementById("t1b1").checked == true)
+        var techVariable = ""
+        if(formVis == "1")
         {
-            console.log("print checked1")
-            var val = "java"
-            tech1 = tech1.concat(",",val)
+            techVariable = document.getElementById("ftech1").value;
+            console.log("techVariable");
+            console.log(techVariable);
+            console.log("techVariable");
         }
-        if( document.getElementById("t1b2").checked == true)
+        else if(formVis == "2")
         {
-            console.log("print checked2")
-            var val = "python"
-            tech1 = tech1.concat(",",val)
+            techVariable = document.getElementById("ftech").value;
+            console.log("techVariable");
+            console.log(techVariable);
+            console.log("techVariable");
         }
-        if( document.getElementById("t1b3").checked == true)
-        {
-            console.log("print checked3")
-            var val = "angularjs"
-            tech1 = tech1.concat(",",val)
-        }
-        tech1 = tech1.substr(1);
-        console.log(tech1)
+        console.log("techVariable defined");
+        console.log(techVariable);
+        console.log("techVariable defined");
 
 
-        if( document.getElementById("t2b1").checked == true)
-        {
-            console.log("print checked4")
-            var val2 = "java"
-            tech2 = tech2.concat(",",val2)
-        }
-        if( document.getElementById("t2b2").checked == true)
-        {
-            console.log("print checked5")
-            var val2 = "python"
-            tech2 = tech2.concat(",",val2)
-        }
-        if( document.getElementById("t2b3").checked == true)
-        {
-            console.log("print checked6")
-            var val2 = "angularjs"
-            tech2 = tech2.concat(",",val2)
-        }
-        tech2 = tech2.substr(1);
-        console.log(tech2)
 
-        $.post("/cvdata", {
+
+        $.post("/cvdata",{
             flname : fullname,
             uage : userage,
             uschool : userschool,
@@ -243,21 +338,42 @@
             uweak : weakness,
             ustrength : strength,
             uidcomp : idlcomp,
-            ufmtech : famtech,
+            ufmtech : techVariable,
             uproone : proone,
             utech1 : tech1,
             uprotwo : protwo,
             utech2 : tech2
 
         });
-        alert("successfully created");
-        window.location.href = '/home';
+
+
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("msform").style.display = "none";
+        myVar = setInterval("myFunction()", 5000);
 
 
 
 
 
       }
+      var valivalu = "a"
+      function myFunction() {
+            $.get("/alertaboutontologycreation", function(data) {
+                ds = $.parseJSON(data);
+                valivalu = ds.val;
+                console.log(valivalu)
+
+                if(String(valivalu)!="ra"){
+                    clearInterval(myVar);
+                    document.getElementById("loader").style.display = "none";
+                    alert("successfully created");
+                    window.location.href = '/home';
+            }
+            });
+
+        }
+
+
     </script>
 
             <!-- Back To Top -->

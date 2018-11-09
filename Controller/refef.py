@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # import bs4 as bs
 # from urllib.request import urlopen as uReq
 # from bs4  import  BeautifulSoup as soup
@@ -97,3 +98,6 @@
 # print(finalFamiliarTechList)
 import nltk
 nltk.download()
+=======
+ccccccccccccccccccccccccccccc
+>>>>>>> 1c3257fd373f0623f9fac8ab07d46d6e54b51acd
