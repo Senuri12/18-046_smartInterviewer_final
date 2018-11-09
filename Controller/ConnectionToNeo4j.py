@@ -349,6 +349,13 @@ def sendNewDifficultyList(userid,languageName,rewardState,str_getDiffList4):
     return qtableValue
 
 
+#get hard state to show suggestion
+def getHardList(userid,languageName):
+    exist = "MATCH(n: user_difficulty{uid: '" + userid + "'}) - [r: level]->(b:difficulty{technology: '" + languageName + "'}) return b.hard"
+    qtableValue = graph.run(exist).evaluate()
+    return qtableValue
+
+
 
 
 #create a cv
@@ -403,8 +410,27 @@ def cvQuestionProjectGen(db,db2,pid,user):
   return gen_Question
 
 
+def getQuestionNumberToSave(userId,sessionNumber,qnumber):
+    queryVoice1 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
+    generate_qNumber = graph.run(queryVoice1).evaluate()
+    return generate_qNumber
+
+def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
+    VoiceSessionNum = "Vses" + sessionNumber
+    saveMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + VoiceSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
+    generate_mark = graph.run(saveMarkQuery).evaluate()
+    return generate_mark
 
 
+# def getVoiceResultReward():
+#     uid = vari.userId
+#     sessionNo = vari.sessionId
+#
+#
+#     query = "MATCH (u: userNode{userId :'" + uid + "'}) - [s: connectToSession]->(i:interviewSession{number : '" + sessionNo + "'}) RETURN collect(i." + abc + "")"
+#     gen_Question = graph.run(query).evaluate()
+#     print(gen_Question)
+#     return gen_Question
 
 
 

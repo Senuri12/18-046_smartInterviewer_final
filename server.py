@@ -2,7 +2,7 @@ import importlib
 import os
 from flask import Flask, render_template,request
 import json
-from Controller import vari,TechnicalQuestions,NonTechnicalQuestions,questionSaver_testing,ConnectionToNeo4j
+from Controller import vari,TechnicalQuestions,NonTechnicalQuestions,questionSaver_testing,ConnectionToNeo4j,Suggestion
 #test eka wenuwata sarindige py file name eka danna haha1 method eka athuleth change karanna
 import test
 import userDetails,jaha
@@ -55,7 +55,12 @@ def haha1():
 
 
 
+@app.route('/suggest')
+def suggest():
 
+    # async_slow_function()
+    suggestions = {"suggestion1": Suggestion.getFacialMark() , "suggestion2": Suggestion.getVoiceMark() , "suggestion3": Suggestion.getAnswerMark()}
+    return json.dumps(suggestions)
 
 
 @app.route('/trigerquestion')
@@ -169,6 +174,8 @@ def history():
 @app.route('/results')
 def results():
     return render_template('results.html')
+
+
 
 
 @app.route('/chart/<a>')

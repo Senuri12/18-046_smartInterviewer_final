@@ -14,7 +14,7 @@ def silence_detect1(QNumber):
 
 
     from pydub import AudioSegment, silence
-    path = 'D:/New Research/SmartInterviewer-Code/BackEnd/Database/Audio/'+outputFile
+    path = '../Database/Audio/'+outputFile
     print(path)
     # os.chdir(path)
     # files = sorted(os.listdir(os.getcwd()), key=os.path.getmtime)
@@ -67,7 +67,7 @@ def silence_detect1(QNumber):
 
     #------------------------------------------------------------
     string = "voiceq"
-    questionNumber ='7'# QNumber
+    questionNumber =QNumber
     questionOutput = string + str(questionNumber)
     print(questionOutput)
     print(type(questionOutput))
