@@ -165,14 +165,30 @@ def getTechNodeCount(db):
   print("inside the function")
   return gen_count
 
-
-def getProjects(db,id):
-    query = "MATCH (a:"+db+"{id:"+id+"})-[:projects]->(proj) RETURN count(*)"
-    # query = "MATCH (a:CV{id:5})-[:projects]->(projects)RETURN count(*)"
+def getProjTwoAva(uid):
+    query = "MATCH (a:CV{id:5})-[r1:projects]->(b:project{topic:'project two'})-[r2:projects_details]->(c:project_d{uid:'"+uid+"'}) RETURN b.pid"
     get_projects =graph.run(query).evaluate()
     return get_projects
 
+def getProjects(uid):
+    finalCount = []
+    # query = "MATCH (a:"+db+"{id:"+id+"})-[:projects]->(proj) RETURN count(*)"
+    # query = "MATCH (a:CV{id:5})-[:projects]->(projects)RETURN count(*)"
+    query = "MATCH (a:CV{id:5})-[r1:projects]->(b:project{topic:'project one'})-[r2:projects_details]->(c:project_d{uid:'"+uid+"'}) RETURN b.pid"
+    proOne_id =graph.run(query).evaluate()
+    proTwoId = getProjTwoAva(uid)
+    if proOne_id != None:
+        finalCount.append(proOne_id)
+    if proTwoId !=None:
+        finalCount.append(proTwoId)
+    print(finalCount)
+    return finalCount
+# getProjects("uid001")
 
+
+
+
+# print(getProjTwoCount("uid044401"))
 def getMatchingTopics(db,topic):
     query = "MATCH(a:language{Name:'" + db + "'}) - [r: has]->(b:sub{Name:'"+topic+"'}) -[r2:nested_has]->(c:subB) RETURN count(c.Name)>0"
     get_availability = graph.run(query).evaluate()
@@ -441,7 +457,7 @@ def addDifficultyLevelsForSpecificTech(tech,easy,medium,hard):
     add_node = graph.run(query).evaluate()
     print(add_node)
     return add_node
-# addDifficultyLevelsForSpecificTech("Maven","1,2,5,6,9,15","3,7,10,12,16","4,8,11,13,14")
+# addDifficultyLevelsForSpecificTech("a","","","1")
 
 #retrieve the topics which are available in the db
 # def getExistingTechnologies():

@@ -95,20 +95,26 @@ def generate_cv_questions():
             if random_que=="5":
                 # voice_record = AudioRecorder.audio_recorder(question_number)
                 # answer_validity = SpeachToText.validation("", typo2, typo, "question" + str(question_number))[0]
+                project_question = ""
+                pro = ConnectionToNeo4j.getProjects(vari.userId)
+                print(pro)
+                if not  pro:
+                    project_question = "final year project"
+                else:
+                    random_proj_que = random.choice(pro)
+                    # print(modify_random_proj_que)
 
-                pro = ConnectionToNeo4j.getProjects(db, "5")
-                # print(pro)
-                for id in range (1,pro+1):
-                    pro_list.append(str(id))
-                # print(pro_list)
-
-
-                random_proj_que = random.choice(pro_list)
-                modify_random_proj_que = "p"+random_proj_que
-                # print(modify_random_proj_que)
-
-                project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2,db3,modify_random_proj_que,userid)
+                    project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2, db3, random_proj_que, userid)
                 question_number = question_number + 1
+
+
+                # for id in range (1,pro+1):
+                #     pro_list.append(str(id))
+                # print(pro_list)
+                print(" pro length")
+
+                print(len(pro_list))
+                print(" pro length")
 
                 actual_project_question = QuestionCreator.gen_Question(project_question,question_number)
                 # print(actual_project_question)

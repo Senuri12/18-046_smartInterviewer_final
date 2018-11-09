@@ -1,4 +1,4 @@
 global gcpq
-gcpq = 'Tell about yourself'
+gcpq = 'Explain about your second year project and its technologies'
 global qno
-qno = '1'
+qno = '6'
