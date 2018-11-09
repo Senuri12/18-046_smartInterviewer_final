@@ -398,12 +398,25 @@ def cvQuestionProjectGen(db,db2,pid,user):
   print(gen_Question)
   return gen_Question
 
+#ayesh voice createVoiceUser
+def createVoiceUser(userId):
+    voiceNode1 = "Match(m: root{Name: 'VoiceResult'}) CREATE (m) -[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})"
+    create_voice_node = graph.run(voiceNode1).evaluate()
+    return create_voice_node
+
+#ayesh voice createVoiceUserSession
+def createVoiceUserSession(userId,sessionNumber):
+    VoiceSessionNum = "Vses" + sessionNumber
+    createVoiceUserSession = "MATCH (m:root{Name:'VoiceResult'})-[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})CREATE (u) - [s: connectToSession]->(i:interviewSession{number : '"+VoiceSessionNum+"'})"
+    create_voice_ses_node = graph.run(createVoiceUserSession).evaluate()
+    return create_voice_ses_node
 
 #ayesh voice getQuestionNumberToSave
 def getQuestionNumberToSave(userId,sessionNumber,qnumber):
     queryVoice1 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
     generate_qNumber = graph.run(queryVoice1).evaluate()
     return generate_qNumber
+
 #ayesh voice saveVoiceMarks
 def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
     VoiceSessionNum = "Vses" + sessionNumber
