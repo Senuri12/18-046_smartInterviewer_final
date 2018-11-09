@@ -2,7 +2,7 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-graph = Graph()
+graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
 
 
 def ontologyQuestionGen(id):
@@ -303,7 +303,7 @@ def sessionMarksStoring(Userid,Session,question,marks):
     return questionExist
 
 
-
+# Anuruddha part
 def createQtable1(languageName, subName):
     uid = vari.userId
     print(uid)
@@ -316,7 +316,7 @@ def createQtable1(languageName, subName):
 # this is to send and update values
 def sendQtable(languageName,subName,qTableCreated):
     uid = vari.userId
-    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.uid='" + qTableCreated + "'  RETURN b." + uid + ""
+    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b." + uid + "='" + qTableCreated + "'  RETURN b." + uid + ""
     qtableValue1 = graph.run(query).evaluate()
     return qtableValue1
 
