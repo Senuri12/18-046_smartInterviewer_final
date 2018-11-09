@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup as soup
 from urllib.request import Request, urlopen
 import importlib
 from py2neo import Graph
+from Controller import vari
 graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
 
 def inforetrievel(technology):
@@ -137,6 +138,22 @@ def inforetrievel(technology):
         number.append("0")
         # number.append("0")
 
+<<<<<<< HEAD
     number.append(aa)
     print("testinghhhh"+str(number))
+=======
+
+<<<<<<< HEAD
+                aa= aa +1
+                print(title)
+                print(len(paragraph))
+                print(aa)
+                uid = vari.userId
+                qtable = "[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0]"
+                query = "match(l:language{Name:'"+technology+"'}) create (l)-[:has]->(x:sub{id:'"+str(aa)+"',Details:'"+str(paragraph)+"',Name:'"+str(title)+"'," + uid + ":'"+qtable+"'}) return x"
+                print(graph.run(query).evaluate())
+=======
+>>>>>>> 1c3257fd373f0623f9fac8ab07d46d6e54b51acd
+
+>>>>>>> 8e45653d7eed2ee252d2ba4375d8c545cbc8b911
     return number

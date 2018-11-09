@@ -11,6 +11,10 @@ from Controller import ConnectionToNeo4j,vari
 
 
 def rewardForQuestion(languageName, subName, nodeId, difficultyLevel):
+    print(languageName)
+    print(subName)
+    print(nodeId)
+    print(difficultyLevel)
 
     print("ANURUDDHA RESULTS")
     print(languageName)
@@ -74,14 +78,14 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel):
     # print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
     # Get the String array matrix from ontology - split
-    I = np.array(ConnectionToNeo4j.createQtable1(languageName, subName)).tolist()
-    Z = I.split(" ")
+    # I = np.array(ConnectionToNeo4j.createQtable1(languageName, subName)).tolist()
+    # Z = I.split(" ")
     QuestionAsked = "new"
     # print("Z-spit krapu 1 \n", Z)
     # print(type(Z)) --> Gives List
 
     # to remove the []
-    number = " ".join(Z)
+    # number = " ".join(Z)
 
     # print("this remove[] \n", number)
     # print(type(number)) --> Gives String

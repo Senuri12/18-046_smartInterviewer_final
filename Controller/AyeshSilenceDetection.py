@@ -1,8 +1,10 @@
 
 import shutil
 import os
-#from BackEnd.Controller import ConnectionToNeo4j, vari, AudioRecorder
-from Controller import ConnectionToNeo4j, vari, AudioRecorder
+#from BackEnd.Controller import ConnectionToNeo4j, vari, AyeshAudioRecorder
+from Controller import ConnectionToNeo4j, vari, AyeshAudioRecorder
+
+
 def silence_detect1(QNumber):
 
     #Passing parameters
@@ -10,7 +12,7 @@ def silence_detect1(QNumber):
     userId = vari.userId
 
 
-    outputFile = AudioRecorder.passedParaName
+    outputFile = AyeshAudioRecorder.passedParaName
 
 
     from pydub import AudioSegment, silence

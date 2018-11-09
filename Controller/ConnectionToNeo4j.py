@@ -2,7 +2,7 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-graph = Graph()
+graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
 
 
 def ontologyQuestionGen(id):
@@ -224,11 +224,11 @@ def getMatchingTopicsNonTech1(db):
         qtable = "[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0]"
         useridz = vari.userId
 
-        query2 = "MATCH(a:language{Name:'" + db + "'}) return a." + useridz + ""
+        query2 = "MATCH(a:language{Name:'" + db + "'})- [r: has]->(b:sub) return b." + useridz + ""
         availability2 = graph.run(query2).evaluate()
 
         if availability2 == None:
-            query1 = "MATCH(a:language{Name:'" + db + "'}) set a." + useridz + "='" + qtable + "'"
+            query1 = "MATCH(a:language{Name:'" + db + "'})- [r: has]->(b:sub) set b." + useridz + "='" + qtable + "'"
             availability1 = graph.run(query1).evaluate()
 
     return availability
@@ -337,7 +337,7 @@ def sessionMarksStoring(Userid,Session,question,marks):
     return questionExist
 
 
-
+# Anuruddha part
 def createQtable1(languageName, subName):
     uid = vari.userId
     print(uid)
@@ -358,7 +358,7 @@ def checkuserinnwadas(uid):
 # this is to send and update values
 def sendQtable(languageName,subName,qTableCreated):
     uid = vari.userId
-    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b.uid='" + qTableCreated + "'  RETURN b." + uid + ""
+    query = "Match (n:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{Name:'" + subName + "'}) where b.Name='" + subName + "' SET b." + uid + "='" + qTableCreated + "'  RETURN b." + uid + ""
     qtableValue1 = graph.run(query).evaluate()
     return qtableValue1
 
@@ -507,29 +507,61 @@ def getLastCreatedUid():
     print(useridz)
     return useridz
 
-# getLastCreatedUid()
+#----------------ayesh voice-------------------------------
 
+#ayesh voice createVoiceUser
+def createVoiceUser(userId):
+    voiceNode1 = "Match(m: root{Name: 'VoiceResult'}) CREATE (m) -[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})"
+    create_voice_node = graph.run(voiceNode1).evaluate()
+    return create_voice_node
+
+#ayesh voice createVoiceUserSession
+def createVoiceUserSession(userId,sessionNumber):
+    VoiceSessionNum = "Vses" + sessionNumber
+    createVoiceUserSession = "MATCH (m:root{Name:'VoiceResult'})-[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})CREATE (u) - [s: connectToSession]->(i:interviewSession{number : '"+VoiceSessionNum+"'})"
+    create_voice_ses_node = graph.run(createVoiceUserSession).evaluate()
+    return create_voice_ses_node
+
+#ayesh voice getQuestionNumberToSave
 def getQuestionNumberToSave(userId,sessionNumber,qnumber):
     queryVoice1 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
     generate_qNumber = graph.run(queryVoice1).evaluate()
     return generate_qNumber
 
+#ayesh voice saveVoiceMarks
 def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
     VoiceSessionNum = "Vses" + sessionNumber
     saveMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + VoiceSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
     generate_mark = graph.run(saveMarkQuery).evaluate()
     return generate_mark
 
+#----------------ayesh facial-----------------------------
 
-# def getVoiceResultReward():
-#     uid = vari.userId
-#     sessionNo = vari.sessionId
-#
-#
-#     query = "MATCH (u: userNode{userId :'" + uid + "'}) - [s: connectToSession]->(i:interviewSession{number : '" + sessionNo + "'}) RETURN collect(i." + abc + "")"
-#     gen_Question = graph.run(query).evaluate()
-#     print(gen_Question)
-#     return gen_Question
+#ayesh facial createVoiceUser
+def createFacialUser(userId):
+    facialNode1 = "Match(m: root{Name: 'FacialResult'}) CREATE (m) -[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})"
+    create_facial_node = graph.run(facialNode1).evaluate()
+    return create_facial_node
+
+#ayesh facial createFacialUserSession
+def createFacialUserSession(userId,sessionNumber):
+    FacialSessionNum = "Fses" + sessionNumber
+    createFacialUserSession = "MATCH (m:root{Name:'FacialResult'})-[c:connectToUser]-> (u: userNode{userId :'" + userId + "'})CREATE (u) - [s: connectToSession]->(i:interviewSession{number : '"+FacialSessionNum+"'})"
+    create_Facial_ses_node = graph.run(createFacialUserSession).evaluate()
+    return create_Facial_ses_node
+
+#ayesh facial getQuestionNumberToSave
+def getQuestionNumberToSaveFacial(userId,sessionNumber,qnumber):
+    queryFacia11 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
+    generate_facial_qNumber = graph.run(queryFacia11).evaluate()
+    return generate_facial_qNumber
+
+#ayesh facial saveFacialMarks
+def saveFacialMarks(userId,sessionNumber,qnumber, facialMark):
+    FacialSessionNum = "Fses" + sessionNumber
+    saveFacialMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + FacialSessionNum + "'}) SET i." + qnumber + " = '" + facialMark + "' RETURN i"
+    generate_facial_mark = graph.run(saveFacialMarkQuery).evaluate()
+    return generate_facial_mark
 
 
 
