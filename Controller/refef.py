@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # import bs4 as bs
 # from urllib.request import urlopen as uReq
 # from bs4  import  BeautifulSoup as soup
@@ -59,39 +60,44 @@
 # # print(source)
 # # soup = bs.BeautifulSoup(source,'lxml')
 # # print(soup.encode("utf-8"))
-# # # print(soup.find_all('div').encode("utf-8"))
-from Controller import vari,TechnicalQuestions,NonTechnicalQuestions,questionSaver_testing,ConnectionToNeo4j
-
-usftech = "java,python,abc"
-techsAvailable = ""
-infoRetList = ""
-finalFamiliarTechList = ""
-techWord_list = usftech.split(',')
-for techWord in techWord_list:
-    availability_node = ConnectionToNeo4j.getMatchingTopicsNonTech(techWord)
-    print(techWord)
-    print(availability_node)
-    if availability_node == True:
-        print("available")
-        techsAvailable = techsAvailable + "," + techWord
-        print(techsAvailable)
-    else:
-        print("not available")
-        infoRet = "0"
-        if infoRet != "0":
-            print(infoRetList)
-            infoRetList = infoRetList + "," + infoRet
-            print(infoRetList)
-finalFamiliarTechList = techsAvailable + "," + infoRetList
-print(finalFamiliarTechList)
-if finalFamiliarTechList[0] == ',':
-    print("in")
-    finalFamiliarTechList = finalFamiliarTechList[1:]
-    print(finalFamiliarTechList)
-stringLength = len(finalFamiliarTechList)-1
-if finalFamiliarTechList[stringLength] == ',':
-    print("hahaa")
-    finalFamiliarTechList = finalFamiliarTechList[:stringLength]
-
-print(len(finalFamiliarTechList))
-print(finalFamiliarTechList)
+# # # # print(soup.find_all('div').encode("utf-8"))
+# from Controller import vari,TechnicalQuestions,NonTechnicalQuestions,questionSaver_testing,ConnectionToNeo4j
+#
+# usftech = "java,python,abc"
+# techsAvailable = ""
+# infoRetList = ""
+# finalFamiliarTechList = ""
+# techWord_list = usftech.split(',')
+# for techWord in techWord_list:
+#     availability_node = ConnectionToNeo4j.getMatchingTopicsNonTech(techWord)
+#     print(techWord)
+#     print(availability_node)
+#     if availability_node == True:
+#         print("available")
+#         techsAvailable = techsAvailable + "," + techWord
+#         print(techsAvailable)
+#     else:
+#         print("not available")
+#         infoRet = "0"
+#         if infoRet != "0":
+#             print(infoRetList)
+#             infoRetList = infoRetList + "," + infoRet
+#             print(infoRetList)
+# finalFamiliarTechList = techsAvailable + "," + infoRetList
+# print(finalFamiliarTechList)
+# if finalFamiliarTechList[0] == ',':
+#     print("in")
+#     finalFamiliarTechList = finalFamiliarTechList[1:]
+#     print(finalFamiliarTechList)
+# stringLength = len(finalFamiliarTechList)-1
+# if finalFamiliarTechList[stringLength] == ',':
+#     print("hahaa")
+#     finalFamiliarTechList = finalFamiliarTechList[:stringLength]
+#
+# print(len(finalFamiliarTechList))
+# print(finalFamiliarTechList)
+import nltk
+nltk.download()
+=======
+ccccccccccccccccccccccccccccc
+>>>>>>> 1c3257fd373f0623f9fac8ab07d46d6e54b51acd

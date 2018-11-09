@@ -10,12 +10,18 @@ from Controller import ConnectionToNeo4j,vari
 
 
 
-def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAsked):
-
-    print("ANURUDDHA RESULTS")
-    # print(languageName)
+def rewardForQuestion(languageName, subName, nodeId, difficultyLevel):
+    print(languageName)
+    print(subName)
     print(nodeId)
     print(difficultyLevel)
+
+    print("ANURUDDHA RESULTS")
+    print(languageName)
+    print(nodeId)
+    print(difficultyLevel)
+    print(subName)
+
 
     importlib.reload(vari)
     userid = vari.userId
@@ -72,14 +78,14 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
     # print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
     # Get the String array matrix from ontology - split
-    I = np.array(ConnectionToNeo4j.createQtable1(languageName, subName)).tolist()
-    Z = I.split(" ")
-    # QuestionAsked = "new"
+    # I = np.array(ConnectionToNeo4j.createQtable1(languageName, subName)).tolist()
+    # Z = I.split(" ")
+    QuestionAsked = "new"
     # print("Z-spit krapu 1 \n", Z)
     # print(type(Z)) --> Gives List
 
     # to remove the []
-    number = " ".join(Z)
+    # number = " ".join(Z)
 
     # print("this remove[] \n", number)
     # print(type(number)) --> Gives String
@@ -275,6 +281,6 @@ def rewardForQuestion(languageName, subName, nodeId, difficultyLevel, QuestionAs
 
 
 
-# rewardForQuestion("python","tuple",10,"hard","new")
+# rewardForQuestion("python","tuple",12,"easy")
 
 

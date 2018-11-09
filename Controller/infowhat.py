@@ -1,0 +1,2 @@
+global valusa
+valusa = 'fn'

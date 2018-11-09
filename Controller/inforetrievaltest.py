@@ -1,6 +1,6 @@
 from Controller import inforetrievel
 
-print(inforetrievel.inforetrievel('csharp'))
+print(inforetrievel.inforetrievel('css'))
 
 
 # csharp

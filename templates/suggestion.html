@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
-    <head>
+<html lang="en">
+ <head>
         <title>Smart interviewer</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i|Montserrat:400,700" rel="stylesheet">
         <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -20,9 +20,7 @@
 
 
     </head>
-
-    <!-- Body -->
-    <body>
+ <body>
 
         <!--header-->
         <header id="head" class="navbar-fixed-top s-header js__header-sticky js__header-overlay">
@@ -55,7 +53,6 @@
                     </div>
                 </div>
             </div>
-            <!-- End Navbar -->
 
             <!-- Overlay -->
             <div id="overlay" class="s-header-bg-overlay js__bg-overlay">
@@ -77,9 +74,6 @@
             </div>
             <!-- End Overlay -->
         </header>
-        <!--========== END HEADER ==========-->
-
-        <!--========== PROMO BLOCK ==========-->
         <div class="g-fullheight--md js__parallax-window" style="background: url(../static/img/1920x1080/resultback.jpg) 50% 0 no-repeat fixed;">
             <div class="g-container--md g-text-center--xs g-ver-center--md g-padding-y-150--xs g-padding-y-0--md">
                 <div class="g-margin-b-60--xs">
@@ -93,54 +87,18 @@
                 </div>
             </div>
         </div>
-        <!--========== END PROMO BLOCK ==========-->
 
-        <!--========== PAGE CONTENT ==========-->
+    <script>
 
-
-        <script>
-
-            function work() {
-                    $.get("/chartsa" , function(data) {
+            function suggest() {
+                    $.get("/suggest" , function(data) {
                         var myobject = $.parseJSON(data)
-                        console.log(myobject.q1)
+                        console.log(myobject.suggestions)
 
-
-                            var canvas = document.getElementById('canvas');
-
-
-                            var data = {
-                            labels: ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5", "Question 6", "Question 7", "Question 8", "Question 9", "Question 10", "Question 11", "Question 12", "Question 13", "Question 14", "Question 15", "Question 16", "Question 17", "Question 18", "Question 19", "Question 20"],
-                            datasets: [
-                                {
-                                    label: "Interview session",
-                                    backgroundColor: "rgba(30,144,255)",
-                                    borderColor: "rgba(30,144,255)",
-                                    borderWidth: 2,
-                                    hoverBackgroundColor: "rgba(0,0,255)",
-                                    hoverBorderColor: "rgba(0,0,255)",
-                                    data: [myobject.q1,myobject.q2,myobject.q3,myobject.q4,myobject.q5,myobject.q6,myobject.q7,myobject.q8,myobject.q9,myobject.q10,myobject.q11,myobject.q12,myobject.q13,myobject.q14,myobject.q15,myobject.q16,myobject.q17,myobject.q18,myobject.q19,myobject.q20],}]};
-                            var option = {
-                            animation: {
-                                            duration:5000}};
-
-
-
-
-                            if(window.bar != undefined)
-                                window.bar.destroy();
-                            window.bar = Chart.Bar(canvas,{
-                                data:data,
-                                options:option});
-
-
-                            {#var myBarChart = #}
 
 
 
             });}
-
-
         </script>
 
 
@@ -169,5 +127,5 @@
         <script type="text/javascript" src="../static/js/components/wow.min.js"></script>
 {#        <script type="text/javascript" src="../static/js/Chart.bundle.js"></script>#}
 
-    </body>
+</body>
 </html>

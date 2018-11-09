@@ -298,7 +298,7 @@ def question_gen():
             parser = GingerIt()
 
             #creates the difficulty levels
-            CreateReward.rewardForQuestion(random_table,random_que,diff_level)
+            CreateReward.rewardForQuestion(random_table,technical_question,random_que,diff_level)
 
              # TextToSpeechConverter.text_to_speech(actual_question,lang)
             qprinted = qprinted+1;
