@@ -29,6 +29,8 @@ question = ""
 
 #gets the keyword and creates a non technical question
 def gen_Question(keywords,qno):
+    print(keywords)
+    print("keywors")
     typo = "nonested"
     typo2 = "nontechnical"
     custom_sent_tokenizer = PunktSentenceTokenizer(train_text)

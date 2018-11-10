@@ -26,6 +26,7 @@
 
   </head>
 
+
   <body id="page-top">
 
     <!-- Navigation -->
@@ -65,8 +66,10 @@
           </div>
           <div class="col-lg-8 mx-auto">
             <p class="text-faded mb-5">~Bruce Lee~ </p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="/interview">Start</a>
+            <div id="jaaaa1" style="display:none"><a class="btn btn-primary btn-xl js-scroll-trigger" href="/interview">Start</a></div>
+            <div id="jaaaa2" style="display:none"><a class="btn btn-primary btn-xl js-scroll-trigger" href="/cv">Fill your CV</a></div>
           </div>
+
         </div>
       </div>
     </header>
@@ -98,7 +101,7 @@
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fas fa-4x fa-gem text-primary mb-3 sr-icon-1"></i>
-              <h3 class="mb-3"><a style="text-decoration:none !important;" href="/cv">Fill your CV</a></h3>
+              <h3 class="mb-3"><a style="text-decoration:none !important;" href="/cv">Update your CV</a></h3>
               <p class="text-muted mb-0">Gather your details for accurate service.</p>
             </div>
           </div>
@@ -177,6 +180,34 @@
 
     <!-- Custom scripts for this template -->
     <script src="../static/js/creative.min.js"></script>
+
+
+
+
+  <script>
+    console.log("hi")
+    $.get("/dingdong", function(data) {
+                ds = $.parseJSON(data);
+                jaja = ds.myca;
+                console.log(jaja)
+
+                if(String(jaja) == "True"){
+
+                    document.getElementById("jaaaa1").style.display = "block";
+                    document.getElementById("jaaaa2").style.display = "none";
+                }
+                else{
+                    console.log("TWo false")
+
+                    document.getElementById("jaaaa1").style.display = "none";
+                    document.getElementById("jaaaa2").style.display = "block";
+                }
+
+
+
+            });
+
+  </script>
 
   </body>
 

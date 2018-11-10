@@ -317,8 +317,9 @@ def get_post_cv_javascript_data():
             print("returning ")
 
             technicalNodeCnt = infoList[1]
-            print("returning ")
+            print("returning node count ")
             print(technicalNodeCnt)
+            print("returning node count ")
 
             if infoRet != "0":
                 infoRet = infoRet.lower()
@@ -326,50 +327,50 @@ def get_post_cv_javascript_data():
                 infoRetList.append(infoRet)
                 print(infoRetList)
                 # ##########################################3 new
-                #
-                # nodeCountValue = int(technicalNodeCnt / 3)
-                # print(nodeCountValue)
-                # changingNodeCountValue = nodeCountValue
-                # remainingValue = technicalNodeCnt - (nodeCountValue * 3)
-                # print(remainingValue)
-                # easyNodes = ""
-                # mediumNodes = ""
-                # hardNodes = ""
-                #
-                # exactCount = technicalNodeCnt
-                #
-                # while changingNodeCountValue > 0:
-                #     easyNodes = easyNodes + "," + str(exactCount)
-                #     exactCount = exactCount - 1
-                #     changingNodeCountValue = changingNodeCountValue - 1
-                # print(easyNodes)
-                # easyNodes = easyNodes[1:]
-                # print(easyNodes)
-                #
-                # changingNodeCountValue = nodeCountValue
-                #
-                # print("nooooooooooooooooooooooooooooooo")
-                # while changingNodeCountValue > 0:
-                #     mediumNodes = mediumNodes + "," + str(exactCount)
-                #     exactCount = exactCount - 1
-                #     changingNodeCountValue = changingNodeCountValue - 1
-                # print(mediumNodes)
-                # mediumNodes = mediumNodes[1:]
-                # print(mediumNodes)
-                #
-                # print("nooooooooooooooooooooooooooooooo")
-                #
-                # changingNodeCountValue = nodeCountValue + remainingValue
-                # print(changingNodeCountValue)
-                # while changingNodeCountValue > 0:
-                #     hardNodes = hardNodes + "," + str(exactCount)
-                #     exactCount = exactCount - 1
-                #     changingNodeCountValue = changingNodeCountValue - 1
-                # print(hardNodes)
-                # hardNodes = hardNodes[1:]
-                # print(hardNodes)
-                #
-                # restResult = ConnectionToNeo4j.addDifficultyLevelsForSpecificTech(infoRet, easyNodes, mediumNodes,hardNodes)
+
+                nodeCountValue = int(technicalNodeCnt / 3)
+                print(nodeCountValue)
+                changingNodeCountValue = nodeCountValue
+                remainingValue = technicalNodeCnt - (nodeCountValue * 3)
+                print(remainingValue)
+                easyNodes = ""
+                mediumNodes = ""
+                hardNodes = ""
+
+                exactCount = technicalNodeCnt
+
+                while changingNodeCountValue > 0:
+                    easyNodes = easyNodes + "," + str(exactCount)
+                    exactCount = exactCount - 1
+                    changingNodeCountValue = changingNodeCountValue - 1
+                print(easyNodes)
+                easyNodes = easyNodes[1:]
+                print(easyNodes)
+
+                changingNodeCountValue = nodeCountValue
+
+                print("nooooooooooooooooooooooooooooooo")
+                while changingNodeCountValue > 0:
+                    mediumNodes = mediumNodes + "," + str(exactCount)
+                    exactCount = exactCount - 1
+                    changingNodeCountValue = changingNodeCountValue - 1
+                print(mediumNodes)
+                mediumNodes = mediumNodes[1:]
+                print(mediumNodes)
+
+                print("nooooooooooooooooooooooooooooooo")
+
+                changingNodeCountValue = nodeCountValue + remainingValue
+                print(changingNodeCountValue)
+                while changingNodeCountValue > 0:
+                    hardNodes = hardNodes + "," + str(exactCount)
+                    exactCount = exactCount - 1
+                    changingNodeCountValue = changingNodeCountValue - 1
+                print(hardNodes)
+                hardNodes = hardNodes[1:]
+                print(hardNodes)
+
+                restResult = ConnectionToNeo4j.addDifficultyLevelsForSpecificTech(infoRet, easyNodes, mediumNodes,hardNodes)
 
                 # ########################################## new
 
@@ -403,11 +404,11 @@ def get_post_cv_javascript_data():
 
     validation = ConnectionToNeo4j.checkuserinnwadas(uid)
 
-    # if validation != True:
-        # fresult = ConnectionToNeo4j.createNewCv(uid,fname,usage,usschool,usuni,usdob,usemail,ustpno,usweak,usstrengh,usidlcmp,finalFamiliarTech,usproone,ustech1,usprotwo,ustech2)
+    if validation != True:
+        fresult = ConnectionToNeo4j.createNewCv(uid,fname,usage,usschool,usuni,usdob,usemail,ustpno,usweak,usstrengh,usidlcmp,finalFamiliarTech,usproone,ustech1,usprotwo,ustech2)
 
     print(fname)
-    pythondata = {'val':infoRet}
+    pythondata = {'val':'jaja'}
     return json.dumps(pythondata)
 
 
