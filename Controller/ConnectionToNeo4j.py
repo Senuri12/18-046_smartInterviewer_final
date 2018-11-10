@@ -166,6 +166,8 @@ def getTechNodeCount(db):
   return gen_count
 
 def getProjTwoAva(uid):
+    print(uid)
+
     query = "MATCH (a:CV{id:5})-[r1:projects]->(b:project{topic:'project two'})-[r2:projects_details]->(c:project_d{uid:'"+uid+"'}) RETURN b.pid"
     get_projects =graph.run(query).evaluate()
     return get_projects
@@ -174,16 +176,24 @@ def getProjects(uid):
     finalCount = []
     # query = "MATCH (a:"+db+"{id:"+id+"})-[:projects]->(proj) RETURN count(*)"
     # query = "MATCH (a:CV{id:5})-[:projects]->(projects)RETURN count(*)"
+    print(uid)
     query = "MATCH (a:CV{id:5})-[r1:projects]->(b:project{topic:'project one'})-[r2:projects_details]->(c:project_d{uid:'"+uid+"'}) RETURN b.pid"
     proOne_id =graph.run(query).evaluate()
+    print(proOne_id)
+    print("proOne_id")
+
     proTwoId = getProjTwoAva(uid)
+    print(proTwoId)
+    print("proTwoId")
     if proOne_id != None:
         finalCount.append(proOne_id)
     if proTwoId !=None:
         finalCount.append(proTwoId)
     print(finalCount)
+    print("This is final")
+
     return finalCount
-# getProjects("uid001")
+getProjects("uid002")
 
 
 
@@ -428,12 +438,12 @@ def createNewCv(userid,fname,usage,usschool,usuni,usdob,usemail,ustpno,usweak,us
     print(createdCvFTechDetail)
 
 
-    exist6 = "MATCH(c: project{pid: 'p1'}) CREATE(c) - [x: projects_details]-> (a: yourdet{uid:'" + userid + "',topic:'"+usproone+"',technologies:'"+ustech1+"'})"
+    exist6 = "MATCH(c: project{pid: 'p1'}) CREATE(c) - [x: projects_details]-> (a: project_d{uid:'" + userid + "',topic:'"+usproone+"',technologies:'"+ustech1+"'})"
     createdCvProOneDetail = graph.run(exist6).evaluate()
     print(createdCvProOneDetail)
 
 
-    exist6 = "MATCH(c: project{pid: 'p2'}) CREATE(c) - [x: projects_details]-> (a: yourdet{uid:'" + userid + "',topic:'" + usprotwo + "',technologies:'" + ustech2 + "'})"
+    exist6 = "MATCH(c: project{pid: 'p2'}) CREATE(c) - [x: projects_details]-> (a: project_d{uid:'" + userid + "',topic:'" + usprotwo + "',technologies:'" + ustech2 + "'})"
     createdCvProOneDetail = graph.run(exist6).evaluate()
     print(createdCvProOneDetail)
 

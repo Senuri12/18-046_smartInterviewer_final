@@ -57,3 +57,12 @@ graph = Graph()
 #
 #
 # checkuserinnwadas("uid00sad1")
+
+
+query = "MATCH(n: oneUser) RETURN n.id"
+node_list = graph.run(query).data()
+mylist = []
+for x in range(0, len(node_list)):
+    mylist.append(node_list[x]['n.id'])
+
+print(mylist)

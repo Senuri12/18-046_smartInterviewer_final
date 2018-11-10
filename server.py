@@ -325,7 +325,7 @@ def get_post_cv_javascript_data():
                 infoRetList.append(infoRet)
                 print(infoRetList)
                 # ##########################################3 new
-                #
+
                 nodeCountValue = int(technicalNodeCnt / 3)
                 print(nodeCountValue)
                 changingNodeCountValue = nodeCountValue
