@@ -98,13 +98,18 @@ def generate_cv_questions():
                 # answer_validity = SpeachToText.validation("", typo2, typo, "question" + str(question_number))[0]
                 project_question = ""
                 random_proj_que = ""
+                print(vari.userId)
                 pro = ConnectionToNeo4j.getProjects(vari.userId)
+                print("pro")
                 print(pro)
+                print("pro")
                 if not  pro:
-                    project_question = "final year project"
+                    random_proj_que = "final year project"
+                    print(random_proj_que)
                 else:
                     random_proj_que = random.choice(pro)
-                    # print(modify_random_proj_que)
+                    print(random_proj_que)
+                print(random_proj_que)
 
                 project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2, db3, random_proj_que, userid)
                 question_number = question_number + 1
