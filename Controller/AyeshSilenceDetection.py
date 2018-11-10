@@ -12,7 +12,7 @@ def silence_detect1(QNumber):
     userId = vari.userId
 
 
-    outputFile = AyeshAudioRecorder.passedParaName
+    outputFile = AyeshAudioRecorder.Audio_recording()
 
 
     from pydub import AudioSegment, silence
@@ -87,4 +87,4 @@ def silence_detect1(QNumber):
 
     print(ConnectionToNeo4j.saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark))
 
-
+silence_detect1(1)
