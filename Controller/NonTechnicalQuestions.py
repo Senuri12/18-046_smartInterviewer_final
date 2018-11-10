@@ -113,6 +113,10 @@ def generate_cv_questions():
 
                 project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2, db3, random_proj_que, userid)
                 question_number = question_number + 1
+                print("project question")
+                print(project_question)
+                print("project question")
+
                 # AyeshSilenceDetection.silence_detect1(question_number)
 
                 # for id in range (1,pro+1):

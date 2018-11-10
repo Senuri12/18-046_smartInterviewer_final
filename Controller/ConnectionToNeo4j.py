@@ -193,7 +193,7 @@ def getProjects(uid):
     print("This is final")
 
     return finalCount
-getProjects("uid002")
+# getProjects("uid002")
 
 
 
@@ -460,6 +460,7 @@ def cvQuestionProjectGen(db,db2,pid,user):
   gen_Question = graph.run(query).evaluate()
   print(gen_Question)
   return gen_Question
+# cvQuestionProjectGen("project","project_d","p1","uid016")
 
 def addDifficultyLevelsForSpecificTech(tech,easy,medium,hard):
     # query = "MATCH(u:root{topic:'difficulty levels'})-[r:level]->(b:user_difficulty) CREATE (N: difficulty{technology:"+ tech +",easy:"+ easy +", medium:"+medium+ ",hard:"+hard+"}) MERGE(b)-[r1:level]->(N)"
