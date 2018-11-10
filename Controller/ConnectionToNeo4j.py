@@ -2,7 +2,7 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-graph = Graph("http://neo4j:Sepalika1993@127.0.0.1:7474/db/data")
+graph = Graph()
 
 
 def ontologyQuestionGen(id):
@@ -381,6 +381,13 @@ def getHardList(userid,languageName):
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
 
+#match with hard state and gets outputs
+def showHardList(element):
+    languageName = "python"
+    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{id:'" + str(element) + "'})RETURN b.Name"
+    qtableValue = graph.run(exist).evaluate()
+    return qtableValue
+
 
 
 
@@ -493,16 +500,6 @@ def getLastCreatedUid():
 
 # getLastCreatedUid()
 
-def getQuestionNumberToSave(userId,sessionNumber,qnumber):
-    queryVoice1 = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '"+sessionNumber+"'}) return i."+qnumber+""
-    generate_qNumber = graph.run(queryVoice1).evaluate()
-    return generate_qNumber
-
-def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
-    VoiceSessionNum = "Vses" + sessionNumber
-    saveMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + VoiceSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
-    generate_mark = graph.run(saveMarkQuery).evaluate()
-    return generate_mark
 
 
 # def getVoiceResultReward():
@@ -514,6 +511,8 @@ def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
 #     gen_Question = graph.run(query).evaluate()
 #     print(gen_Question)
 #     return gen_Question
+
+
 
 
 
