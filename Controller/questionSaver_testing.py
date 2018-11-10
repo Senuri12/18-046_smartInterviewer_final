@@ -1,2 +1,4 @@
 global gcpq
-gcpq = 'end'
+gcpq = 'What is  your ideal company'
+global qno
+qno = '2'

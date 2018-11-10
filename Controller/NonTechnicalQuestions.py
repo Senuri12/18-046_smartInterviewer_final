@@ -1,6 +1,6 @@
 import importlib
 import random,time
-from Controller import ConnectionToNeo4j,QuestionCreator,NestedQuestionCreator,vari,AudioRecorder,AyeshSilenceDetection
+from Controller import ConnectionToNeo4j,QuestionCreator,NestedQuestionCreator,vari,AudioRecorder
 from Controller import SpeachToText
 from gingerit.gingerit import GingerIt
 import requests
@@ -69,7 +69,7 @@ def generate_cv_questions():
             print("jokes"+non_technical_question)
 
             question_number = question_number + 1
-            AyeshSilenceDetection.silence_detect1(question_number)
+            # AyeshSilenceDetection.silence_detect1(question_number)
 
             actual_question = QuestionCreator.gen_Question(non_technical_question,question_number)
             # print(actual_question)
@@ -108,7 +108,7 @@ def generate_cv_questions():
 
                 project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2, db3, random_proj_que, userid)
                 question_number = question_number + 1
-                AyeshSilenceDetection.silence_detect1(question_number)
+                # AyeshSilenceDetection.silence_detect1(question_number)
 
                 # for id in range (1,pro+1):
                 #     pro_list.append(str(id))

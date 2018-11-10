@@ -81,11 +81,8 @@ def inforetrievel(technology):
                             aa= aa +1
                             print(title)
                             print(len(paragraph))
-                            print(aa)
+                            print("count me"+str(aa))
                             print(paragraph)
-
-
-
 
                             #anurudda ewwa wadak ne
                             # uid = vari.userId
@@ -95,25 +92,19 @@ def inforetrievel(technology):
                             #     aa) + "',Details:'" + str(paragraph) + "',Name:'" + str(
                             #     title) + "', '" + uid + "'= '" + qtable + "'}) return x"
 
-
-
-
-
-
-
-
-
                             query = "MATCH(n: oneUser) RETURN n.id"
                             node_list = graph.run(query).data()
-                            mylist = []
+                            mylist12 = []
                             for x in range(0, len(node_list)):
-                                mylist.append(node_list[x]['n.id'])
+                                mylist12.append(node_list[x]['n.id'])
+                                print(mylist12)
 
                             valu = ""
-                            for y in range(0, len(mylist)):
+                            for y in range(0, len(mylist12)):
                                 qtable = "[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0]"
-                                mylist[y]
-                                cvas = str(mylist[y]) + ":'" + str(qtable) + "'"
+                                print(mylist12[y])
+
+                                cvas = str(mylist12[y]) + ":'" + str(qtable) + "'"
                                 if y == 0:
                                     valu = valu + cvas
                                 else:
