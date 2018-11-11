@@ -87,4 +87,4 @@ def silence_detect1(QNumber):
 
     print(ConnectionToNeo4j.saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark))
 
-silence_detect1(1)
+# silence_detect1(1)

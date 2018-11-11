@@ -1,6 +1,6 @@
 import importlib
 import random,time
-from Controller import ConnectionToNeo4j,QuestionCreator,NestedQuestionCreator,vari,AudioRecorder
+from Controller import ConnectionToNeo4j,QuestionCreator,NestedQuestionCreator,vari,AudioRecorder,AyeshSilenceDetection
 from Controller import SpeachToText
 from gingerit.gingerit import GingerIt
 import requests
@@ -69,9 +69,10 @@ def generate_cv_questions():
             print("jokes"+non_technical_question)
 
             question_number = question_number + 1
-            # AyeshSilenceDetection.silence_detect1(question_number)
 
             actual_question = QuestionCreator.gen_Question(non_technical_question,question_number)
+            AyeshSilenceDetection.silence_detect1(question_number)
+
             # print(actual_question)
             # parser = GingerIt()
             # grammer_corrected_question_list = parser.parse(actual_question)
@@ -113,43 +114,24 @@ def generate_cv_questions():
 
                 project_question = ConnectionToNeo4j.cvQuestionProjectGen(db2, db3, random_proj_que, userid)
                 question_number = question_number + 1
+
                 print("project question")
                 print(project_question)
                 print("project question")
 
-                # AyeshSilenceDetection.silence_detect1(question_number)
 
-                # for id in range (1,pro+1):
-                #     pro_list.append(str(id))
-                # print(pro_list)
                 print(" pro length")
 
                 print(len(pro_list))
                 print(" pro length")
 
                 actual_project_question = QuestionCreator.gen_Question(project_question,question_number)
-                # print(actual_project_question)
-                # parser = GingerIt()
-                # grammer_corrected_project_question_list = parser.parse(actual_project_question)
-                # grammer_corrected_pr0ject_question = grammer_corrected_project_question_list.get("result")
-
-                # TextToSpeechConverter.text_to_speech(grammer_corrected_pr0ject_question, lang)
-                # print(question_number)
-                # print("hiiiiiiiiiiiiiiiiii printing count")
+                AyeshSilenceDetection.silence_detect1(question_number)
 
 
-                # print("check validity")
-                # answer_validity = input()
 
             print("after a while")
 
-            # voice_record = AudioRecorder.audio_recorder(question_number)
-            # answer_validity = SpeachToText.validation("", typo2,typo,"question"+str(question_number))[0]
-
-
-
-            # while(answer_validity=="None" ):
-            #     answer_validity = SpeachToText.validation("", typo2,typo,"question"+str(question_number))[0]
 
 
         q_list = []

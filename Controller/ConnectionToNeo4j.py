@@ -468,7 +468,7 @@ def addDifficultyLevelsForSpecificTech(tech,easy,medium,hard):
     add_node = graph.run(query).evaluate()
     print(add_node)
     return add_node
-# addDifficultyLevelsForSpecificTech("a","","","1")
+# addDifficultyLevelsForSpecificTech("csharp","1,2,5,6,9,15,17,22,26,29","3,7,10,12,16,18,20,23,25,28","4,8,11,13,14,19,21,24,27")
 
 #retrieve the topics which are available in the db
 # def getExistingTechnologies():
