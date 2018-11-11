@@ -127,7 +127,23 @@ def inforetrievel(technology):
     if len(number)==0:
 
         number.append("0")
+<<<<<<< HEAD
+        number.append("0")
+
+
+
+        aa= aa +1
+        print(title)
+        print(len(paragraph))
+        print(aa)
+        uid = vari.userId
+        qtable = "[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0],[0.0, 0.0, 0.0, 0.0, 0.0]"
+        query = "match(l:language{Name:'"+technology+"'}) create (l)-[:has]->(x:sub{id:'"+str(aa)+"',Details:'"+str(paragraph)+"',Name:'"+str(title)+"'," + uid + ":'"+qtable+"'}) return x"
+        print(graph.run(query).evaluate())
+
+=======
         # number.append("0")
+>>>>>>> 19a3a8b2b49ad3ff3091bd95655d7cac9ff47634
 
     number.append(aa)
     print("testinghhhh"+str(number))

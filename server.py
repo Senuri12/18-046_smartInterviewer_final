@@ -1,7 +1,7 @@
 import importlib
 from flask import Flask, render_template,request
 import json
-from Controller import questionSaver_testing,ConnectionToNeo4j,inforetrievel,infowhat,MainQuestionGenerator,vari,QuesType, vari,TechnicalQuestions,NonTechnicalQuestions,Suggestion
+from Controller import questionSaver_testing,ConnectionToNeo4j,inforetrievel,infowhat,MainQuestionGenerator,QuesType, vari,TechnicalQuestions,NonTechnicalQuestions,Suggestion
 
 #test eka wenuwata sarindige py file name eka danna haha1 method eka athuleth change karanna
 import test
@@ -46,6 +46,13 @@ def profile():
 
 
 
+@app.route('/suggesionspage')
+def suggesionspage():
+
+    return render_template('suggestion.html')
+
+
+
 ########################################################################
 
 @app.route('/dum')
@@ -60,11 +67,10 @@ def haha1():
 
 
 
-@app.route('/suggest')
-def suggest():
+@app.route('/testsugest')
+def testsugest():
 
-    # async_slow_function()
-    suggestions = {"suggestion1": Suggestion.getFacialMark() , "suggestion2": Suggestion.getVoiceMark() , "suggestion3": Suggestion.getAnswerMark()}
+    suggestions = {"suggestion1":Suggestion.getAnswerMark(),"suggestion2":Suggestion.getVoiceMark(),"suggestion3":Suggestion.getFacialMark(), "suggestion4":Suggestion.showHardSubjectNames()}
     return json.dumps(suggestions)
 
 
@@ -127,10 +133,6 @@ def get_post_javascript_data():
             print(line)
 
         new_file.close()
-
-
-
-
 
 
 @app.route('/getloginresult')

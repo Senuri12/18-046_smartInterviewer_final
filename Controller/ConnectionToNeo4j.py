@@ -2,7 +2,9 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-graph = Graph("")
+
+graph = Graph()
+
 
 
 def ontologyQuestionGen(id):
@@ -407,6 +409,13 @@ def getHardList(userid,languageName):
     qtableValue = graph.run(exist).evaluate()
     return qtableValue
 
+#match with hard state and gets outputs
+def showHardList(element):
+    languageName = "python"
+    exist = "MATCH(a:language{Name:'" + languageName + "'}) - [r: has]->(b:sub{id:'" + str(element) + "'})RETURN b.Name"
+    qtableValue = graph.run(exist).evaluate()
+    return qtableValue
+
 
 
 
@@ -526,6 +535,7 @@ def createVoiceUser(userId):
     create_voice_node = graph.run(voiceNode1).evaluate()
     return create_voice_node
 
+
 #ayesh voice createVoiceUserSession
 def createVoiceUserSession(userId,sessionNumber):
     VoiceSessionNum = "Vses" + sessionNumber
@@ -545,6 +555,7 @@ def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
     saveMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + VoiceSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
     generate_mark = graph.run(saveMarkQuery).evaluate()
     return generate_mark
+
 
 #----------------ayesh facial-----------------------------
 
@@ -573,6 +584,8 @@ def saveFacialMarks(userId,sessionNumber,qnumber, facialMark):
     saveFacialMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + FacialSessionNum + "'}) SET i." + qnumber + " = '" + facialMark + "' RETURN i"
     generate_facial_mark = graph.run(saveFacialMarkQuery).evaluate()
     return generate_facial_mark
+
+
 
 
 

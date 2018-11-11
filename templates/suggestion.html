@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
- <head>
+<html lang="en" class="no-js">
+    <head>
         <title>Smart interviewer</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i|Montserrat:400,700" rel="stylesheet">
         <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -20,7 +20,9 @@
 
 
     </head>
- <body>
+
+    <!-- Body -->
+    <body>
 
         <!--header-->
         <header id="head" class="navbar-fixed-top s-header js__header-sticky js__header-overlay">
@@ -53,6 +55,7 @@
                     </div>
                 </div>
             </div>
+            <!-- End Navbar -->
 
             <!-- Overlay -->
             <div id="overlay" class="s-header-bg-overlay js__bg-overlay">
@@ -63,7 +66,6 @@
                         <ul class="list-unstyled s-header__nav-menu">
                             <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="/home">Go to the home page</a></li>
                             <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="/interview">Start interview</a></li>
-                            <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="/history">View results history</a></li>
                             <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider" href="/">log out</a></li>
 
                         </ul>
@@ -74,31 +76,70 @@
             </div>
             <!-- End Overlay -->
         </header>
+        <!--========== END HEADER ==========-->
+
+        <!--========== PROMO BLOCK ==========-->
         <div class="g-fullheight--md js__parallax-window" style="background: url(../static/img/1920x1080/resultback.jpg) 50% 0 no-repeat fixed;">
             <div class="g-container--md g-text-center--xs g-ver-center--md g-padding-y-150--xs g-padding-y-0--md">
                 <div class="g-margin-b-60--xs">
+
                     <div class="container">
-                        <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-25--xs"><button id="starter" style="color: white;" type="button" class="btn btn-dark" onclick="work()">View</button></p>
+                        <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-25--xs"><button id="starter1" style="margin-top: 150px;color: white;" type="button" class="btn btn-dark" onclick="loadmychart()">View suggestions</button></p>
+
+                        <p id="sugestion1"></p><br><br>
+                        <p id="sugestion2"></p><br><br>
+                        <p id="sugestion3"></p><br><br>
+                        <p id="sugestion4"></p><br><br>
 
                     </div>
+
+
+
+
+
+
+
+
 
 
                     <p class="g-font-size-18--xs g-font-size-26--md g-color--white-opacity g-margin-b-0--xs"><canvas id="canvas" width="400" height="200"></canvas></p>
                 </div>
             </div>
         </div>
+        <!--========== END PROMO BLOCK ==========-->
 
-    <script>
+        <!--========== PAGE CONTENT ==========-->
 
-            function suggest() {
-                    $.get("/suggest" , function(data) {
+
+        <script>
+
+
+
+                    function loadmychart(){
+
+                        $.get("/testsugest", function(data) {
                         var myobject = $.parseJSON(data)
-                        console.log(myobject.suggestions)
+                        console.log(myobject.suggestion1)
+                        console.log(myobject.suggestion2)
+                        console.log(myobject.suggestion3)
+                        console.log(myobject.suggestion4)
+
+
+                        document.getElementById("sugestion1").innerHTML = myobject.suggestion1;
+
+                        document.getElementById("sugestion2").innerHTML = myobject.suggestion2
+                        document.getElementById("sugestion3").innerHTML = myobject.suggestion3
+                        document.getElementById("sugestion4").innerHTML = myobject.suggestion4
+
+
+                    });
+                    }
 
 
 
 
-            });}
+
+
         </script>
 
 
@@ -127,5 +168,5 @@
         <script type="text/javascript" src="../static/js/components/wow.min.js"></script>
 {#        <script type="text/javascript" src="../static/js/Chart.bundle.js"></script>#}
 
-</body>
+    </body>
 </html>
