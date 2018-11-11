@@ -2,11 +2,9 @@ import importlib
 
 from py2neo import Graph
 from Controller import vari
-<<<<<<< HEAD
+
 graph = Graph()
-=======
-graph = Graph("")
->>>>>>> 19a3a8b2b49ad3ff3091bd95655d7cac9ff47634
+
 
 
 def ontologyQuestionGen(id):
@@ -537,8 +535,7 @@ def createVoiceUser(userId):
     create_voice_node = graph.run(voiceNode1).evaluate()
     return create_voice_node
 
-<<<<<<< HEAD
-=======
+
 #ayesh voice createVoiceUserSession
 def createVoiceUserSession(userId,sessionNumber):
     VoiceSessionNum = "Vses" + sessionNumber
@@ -558,7 +555,7 @@ def saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark):
     saveMarkQuery = "MATCH(u: userNode{userId: '" + userId + "'}) - [s: connectToSession]->(i:interviewSession{number: '" + VoiceSessionNum + "'}) SET i." + qnumber + " = '" + voiceMark + "' RETURN i"
     generate_mark = graph.run(saveMarkQuery).evaluate()
     return generate_mark
->>>>>>> 19a3a8b2b49ad3ff3091bd95655d7cac9ff47634
+
 
 #----------------ayesh facial-----------------------------
 

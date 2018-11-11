@@ -81,4 +81,7 @@ def audio_recorder(questionNo):
     wf.close()
     shutil.move(CURRENT_FILE_NAME,"Audio")
     print("Moved "+CURRENT_FILE_NAME+" to Audio directory.")
-    return "yes"
+    return CURRENT_FILE_NAME
+
+#methana 5 kiyala question number eka pass karanne ai kiyala danne na.
+#audio_recorder(5)

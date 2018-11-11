@@ -1,8 +1,9 @@
 
 import shutil
 import os
+import glob
 #from BackEnd.Controller import ConnectionToNeo4j, vari, AyeshAudioRecorder
-from Controller import ConnectionToNeo4j, vari, AyeshAudioRecorder
+from Controller import ConnectionToNeo4j, vari
 
 
 def silence_detect1(QNumber):
@@ -12,19 +13,16 @@ def silence_detect1(QNumber):
     userId = vari.userId
 
 
-    outputFile = AyeshAudioRecorder.Audio_recording()
+    #outputFile =AudioRecorder.audio_recorder()
+    #print(outputFile)
 
 
     from pydub import AudioSegment, silence
-    path = '../Database/Audio/'+outputFile
-    print(path)
-    # os.chdir(path)
-    # files = sorted(os.listdir(os.getcwd()), key=os.path.getmtime)
-    # oldest = files[0]
-    # print(oldest)
-    # path1 = path + '/' + oldest
-    # print(path1)
-    myaudio = AudioSegment.from_wav(path)  # 'audio/output14.wav'
+    list_of_files = glob.glob('../Audio/*.wav') # * means all if need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime)
+    print (latest_file)
+
+    myaudio = intro = AudioSegment.from_wav(latest_file)  # 'audio/output14.wav'
 
     silence = silence.detect_silence(myaudio, min_silence_len=1000, silence_thresh=-30)
     # start and the end point of silence and display number of silent part in brackets
@@ -87,4 +85,5 @@ def silence_detect1(QNumber):
 
     print(ConnectionToNeo4j.saveVoiceMarks(userId,sessionNumber,qnumber, voiceMark))
 
+#ayesh- mage lap eke check karaganna damme methana 1 kiyanne sarindi pass karana question number eka, adala userid eka saha session eka yatathe voiceq1 kiyala attribute ekak hadila labena mark eka save wenawa.
 #silence_detect1(1)
